@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "743468186486",
+    "project_id": "pegi-7ed4c",
+    "storage_bucket": "pegi-7ed4c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:743468186486:android:46916efcdf5fc544139857",
+        "android_client_info": {
+          "package_name": "com.example.pegi"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "743468186486-i8s4603g8hp0tuaus93qskl0dk38dd7m.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDSjV6jL8qpySjpOgE2DI9jBPGgwK5Ttpo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "743468186486-i8s4603g8hp0tuaus93qskl0dk38dd7m.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
