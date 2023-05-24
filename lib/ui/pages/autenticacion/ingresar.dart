@@ -21,34 +21,93 @@ class _IngresarState extends State<Ingresar> {
   TextEditingController controlUsuario = TextEditingController();
   TextEditingController controlContrasena = TextEditingController();
   ControlUsuario controlu = Get.find();
+  String? emailError;
+  String? passwordError;
+  bool isButtonEnabled = false; // Estado inicial del botón deshabilitado
+
+  @override
+  void initState() {
+    super.initState();
+    controlUsuario.addListener(validateForm);
+    controlContrasena.addListener(validateForm);
+  }
+
+  @override
+  void dispose() {
+    controlUsuario.dispose();
+    controlContrasena.dispose();
+    super.dispose();
+  }
+
+  String? validateEmail(String value) {
+    if (value == null || value.isEmpty) {
+      emailError = 'El correo no puede estar vacío.';
+    } else if (!value.endsWith("@unicesar.edu.co")) {
+      emailError = 'El correo debe terminar con "@unicesar.edu.co".';
+    } else {
+      emailError = null; // Limpiar el mensaje de error
+    }
+    return emailError;
+  }
+
+  String? validatePassword(String value) {
+    if (value == null || value.isEmpty) {
+      passwordError = 'La contraseña no puede estar vacía.';
+    } else if (value.length < 1 || value.length >= 50) {
+      passwordError = 'La contraseña debe tener entre 1 y 49 caracteres.';
+    } else {
+      passwordError = null; // Limpiar el mensaje de error
+    }
+    return passwordError;
+  }
+
+  void validateForm() {
+    setState(() {
+      // Verificar si hay mensajes de error en los campos de correo y contraseña
+      if (validateEmail(controlUsuario.text) == null &&
+          validatePassword(controlContrasena.text) == null) {
+        // Ambos campos están validados, habilitar el botón
+        isButtonEnabled = true;
+      } else {
+        // Al menos uno de los campos tiene un mensaje de error, deshabilitar el botón
+        isButtonEnabled = false;
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Stack(children: [
-        Positioned(
+      body: Stack(
+        children: [
+          Positioned(
             left: 0,
             right: 0,
             child: Container(
               width: double.maxFinite,
               height: Dimensiones.height70,
               decoration: const BoxDecoration(
-                  image: DecorationImage(
-                      image: AssetImage('assets/images/home.png'),
-                      fit: BoxFit.cover)),
-            )),
-        Positioned(
+                image: DecorationImage(
+                  image: AssetImage('assets/images/home.png'),
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ),
+          ),
+          Positioned(
             top: Dimensiones.height5,
             left: Dimensiones.width5,
             child: IconButton(
               icon: AppIcon(
-                  iconD: Icons.arrow_back_ios,
-                  iconColor: const Color.fromARGB(255, 202, 209, 209)),
+                iconD: Icons.arrow_back_ios,
+                iconColor: const Color.fromARGB(255, 202, 209, 209),
+              ),
               onPressed: () {
                 Get.offAllNamed('/principal');
               },
-            )),
-        Positioned(
+            ),
+          ),
+          Positioned(
             top: Dimensiones.height15,
             left: Dimensiones.width15,
             child: Column(
@@ -57,28 +116,32 @@ class _IngresarState extends State<Ingresar> {
                 Text(
                   'Ingresar',
                   style: GoogleFonts.kodchasan(
-                      color: Colors.white,
-                      fontSize: 35,
-                      fontWeight: FontWeight.w500),
+                    color: Colors.white,
+                    fontSize: 35,
+                    fontWeight: FontWeight.w500,
+                  ),
                 ),
                 Text(
                   'Ingrese sus datos para continuar',
                   style: GoogleFonts.kodchasan(
-                      color: Colors.white,
-                      fontSize: 15,
-                      fontWeight: FontWeight.w500),
-                )
+                    color: Colors.white,
+                    fontSize: 15,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
               ],
-            )),
-        Positioned(
+            ),
+          ),
+          Positioned(
             left: 0,
             right: 0,
             top: Dimensiones.height30,
             height: Dimensiones.height80,
             child: Container(
               padding: EdgeInsets.symmetric(
-                  horizontal: Dimensiones.width10,
-                  vertical: Dimensiones.height5),
+                horizontal: Dimensiones.width10,
+                vertical: Dimensiones.height5,
+              ),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(40),
                 color: Colors.white,
@@ -86,13 +149,15 @@ class _IngresarState extends State<Ingresar> {
               child: Column(
                 children: [
                   Input(
-                      false,
-                      controlUsuario,
-                      "Usuario",
-                      const EdgeInsets.all(0),
-                      EdgeInsets.symmetric(vertical: Dimensiones.height5),
-                      const Color.fromARGB(255, 197, 197, 197),
-                      Colors.grey.shade700),
+                    false,
+                    controlUsuario,
+                    "Correo",
+                    const EdgeInsets.all(0),
+                    EdgeInsets.symmetric(vertical: Dimensiones.height5),
+                    const Color.fromARGB(255, 197, 197, 197),
+                    Colors.grey.shade700,
+                    validationFunction: validateEmail,
+                  ),
                   Input(
                     true,
                     controlContrasena,
@@ -101,56 +166,70 @@ class _IngresarState extends State<Ingresar> {
                     const EdgeInsets.only(bottom: 8),
                     const Color.fromARGB(255, 197, 197, 197),
                     Colors.grey.shade700,
+                    validationFunction: validatePassword,
                   ),
                   Align(
                     alignment: Alignment.bottomRight,
                     child: TextButton(
-                        child: Text(
-                          '¿No tiene una cuenta?',
-                          style: GoogleFonts.kodchasan(
-                              color: Colors.black,
-                              fontSize: 15,
-                              fontWeight: FontWeight.w500),
+                      child: Text(
+                        '¿No tiene una cuenta?',
+                        style: GoogleFonts.kodchasan(
+                          color: Colors.black,
+                          fontSize: 15,
+                          fontWeight: FontWeight.w500,
                         ),
-                        onPressed: () => Get.offAllNamed('/registrar')),
+                      ),
+                      onPressed: () => Get.offAllNamed('/registrar'),
+                    ),
                   ),
                   Padding(
-                    padding:
-                        EdgeInsets.symmetric(vertical: Dimensiones.height5),
+                    padding: EdgeInsets.symmetric(
+                      vertical: Dimensiones.height5,
+                    ),
                     child: ElevatedButton(
-                      onPressed: () {
-                        controlu
-                            .enviarDatos(
-                                controlUsuario.text, controlContrasena.text)
-                            .then((value) {
-                          if (controlu.emailf != 'Sin Registro') {
-                            if (controlu.rol != "") {
-                              Get.offAll(HomePage(rol: controlu.rol));
+                      onPressed: isButtonEnabled
+                          ? () {
+                              controlu
+                                  .enviarDatos(
+                                controlUsuario.text,
+                                controlContrasena.text,
+                              )
+                                  .then((value) {
+                                if (controlu.emailf != 'Sin Registro') {
+                                  if (controlu.rol != "") {
+                                    Get.offAll(HomePage(rol: controlu.rol));
+                                  }
+                                } else {
+                                  Get.showSnackbar(
+                                    const GetSnackBar(
+                                      title: 'Validación de Usuarios',
+                                      message: 'Datos Inválidos',
+                                      icon: Icon(Icons.warning),
+                                      duration: Duration(seconds: 5),
+                                      backgroundColor: Colors.red,
+                                    ),
+                                  );
+                                }
+                              }).catchError((e) {
+                                Get.showSnackbar(
+                                  const GetSnackBar(
+                                    title: 'Validación de Usuarios',
+                                    message: 'Datos Inválidos',
+                                    icon: Icon(Icons.warning),
+                                    duration: Duration(seconds: 5),
+                                    backgroundColor: Colors.red,
+                                  ),
+                                );
+                              });
                             }
-                          } else {
-                            Get.showSnackbar(const GetSnackBar(
-                              title: 'Validacion de Usuarios',
-                              message: 'Datos Invalidos',
-                              icon: Icon(Icons.warning),
-                              duration: Duration(seconds: 5),
-                              backgroundColor: Colors.red,
-                            ));
-                          }
-                        }).catchError((e) {
-                          Get.showSnackbar(const GetSnackBar(
-                            title: 'Validacion de Usuarios',
-                            message: 'Datos Invalidos',
-                            icon: Icon(Icons.warning),
-                            duration: Duration(seconds: 5),
-                            backgroundColor: Colors.red,
-                          ));
-                        });
-                      },
-                      child: Text("Ingresar",
-                          style: GoogleFonts.kodchasan(
-                            color: Colors.white,
-                            fontSize: 13,
-                          )),
+                          : null,
+                      child: Text(
+                        "Ingresar",
+                        style: GoogleFonts.kodchasan(
+                          color: Colors.white,
+                          fontSize: 13,
+                        ),
+                      ),
                       style: ElevatedButton.styleFrom(
                         primary: Colors.black,
                         shape: RoundedRectangleBorder(
@@ -162,8 +241,10 @@ class _IngresarState extends State<Ingresar> {
                   ),
                 ],
               ),
-            ))
-      ]),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

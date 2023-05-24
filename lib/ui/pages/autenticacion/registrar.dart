@@ -21,7 +21,61 @@ class _RegistrarState extends State<Registrar> {
   TextEditingController controlApellido = TextEditingController();
   TextEditingController controlCorreo = TextEditingController();
   TextEditingController controlContrasena = TextEditingController();
+
   ControlUsuario controlu = Get.find();
+  String? emailError;
+  String? passwordError;
+  bool isButtonEnabled = false; // Estado inicial del botón deshabilitado
+
+  @override
+  void initState() {
+    super.initState();
+    controlCorreo.addListener(validateForm);
+    controlContrasena.addListener(validateForm);
+  }
+
+  @override
+  void dispose() {
+    controlCorreo.dispose();
+    controlContrasena.dispose();
+    super.dispose();
+  }
+
+  String? validateEmail(String value) {
+    if (value == null || value.isEmpty) {
+      emailError = 'El correo no puede estar vacío.';
+    } else if (!value.endsWith("@unicesar.edu.co")) {
+      emailError = 'El correo debe terminar con "@unicesar.edu.co".';
+    } else {
+      emailError = null; // Limpiar el mensaje de error
+    }
+    return emailError;
+  }
+
+  String? validatePassword(String value) {
+    if (value == null || value.isEmpty) {
+      passwordError = 'La contraseña no puede estar vacía.';
+    } else if (value.length < 1 || value.length >= 50) {
+      passwordError = 'La contraseña debe tener entre 1 y 49 caracteres.';
+    } else {
+      passwordError = null; // Limpiar el mensaje de error
+    }
+    return passwordError;
+  }
+
+  void validateForm() {
+    setState(() {
+      // Verificar si hay mensajes de error en los campos de correo y contraseña
+      if (validateEmail(controlCorreo.text) == null &&
+          validatePassword(controlContrasena.text) == null) {
+        // Ambos campos están validados, habilitar el botón
+        isButtonEnabled = true;
+      } else {
+        // Al menos uno de los campos tiene un mensaje de error, deshabilitar el botón
+        isButtonEnabled = false;
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -94,6 +148,7 @@ class _RegistrarState extends State<Registrar> {
                     const EdgeInsets.only(top: 10, bottom: 20),
                     const Color.fromARGB(255, 197, 197, 197),
                     Colors.grey.shade700,
+                    validationFunction: validateEmail,
                   ),
                   Input(
                     false,
@@ -103,43 +158,46 @@ class _RegistrarState extends State<Registrar> {
                     const EdgeInsets.only(top: 10),
                     const Color.fromARGB(255, 197, 197, 197),
                     Colors.grey.shade700,
+                    validationFunction: validatePassword,
                   ),
                   Padding(
                     padding:
                         EdgeInsets.symmetric(vertical: Dimensiones.height5),
                     child: ElevatedButton(
-                      onPressed: () {
-                        controlu.RegistrarDatos(
-                                controlCorreo.text, controlContrasena.text)
-                            .then((value) {
-                          if (controlu.emailf != 'Sin Registro') {
-                            Get.showSnackbar(const GetSnackBar(
-                              title: 'Validacion de Usuarios',
-                              message: 'Datos registrados Correctamente',
-                              icon: Icon(Icons.gpp_good_outlined),
-                              duration: Duration(seconds: 5),
-                              backgroundColor: Colors.greenAccent,
-                            ));
-                            Get.offAllNamed("/ingresar");
-                          } else {
-                            Get.showSnackbar(const GetSnackBar(
-                              title: 'Validacion de Usuarios',
-                              message: 'Datos Invalidos',
-                              icon: Icon(Icons.warning),
-                              duration: Duration(seconds: 5),
-                              backgroundColor: Colors.red,
-                            ));
-                          }
-                        }).catchError((e) {
-                          Get.showSnackbar(const GetSnackBar(
-                            title: 'Validacion de Usuarios',
-                            message: 'Datos Invalidos',
-                            icon: Icon(Icons.warning),
-                            duration: Duration(seconds: 5),
-                            backgroundColor: Colors.red,
-                          ));
-                        });
-                      },
+                      onPressed: isButtonEnabled
+                          ? () {
+                              controlu.RegistrarDatos(controlCorreo.text,
+                                      controlContrasena.text)
+                                  .then((value) {
+                                if (controlu.emailf != 'Sin Registro') {
+                                  Get.showSnackbar(const GetSnackBar(
+                                    title: 'Validacion de Usuarios',
+                                    message: 'Datos registrados Correctamente',
+                                    icon: Icon(Icons.gpp_good_outlined),
+                                    duration: Duration(seconds: 5),
+                                    backgroundColor: Colors.greenAccent,
+                                  ));
+                                  Get.offAllNamed("/ingresar");
+                                } else {
+                                  Get.showSnackbar(const GetSnackBar(
+                                    title: 'Validacion de Usuarios',
+                                    message: 'Datos Invalidos',
+                                    icon: Icon(Icons.warning),
+                                    duration: Duration(seconds: 5),
+                                    backgroundColor: Colors.red,
+                                  ));
+                                }
+                              }).catchError((e) {
+                                Get.showSnackbar(const GetSnackBar(
+                                  title: 'Validacion de Usuarios',
+                                  message: 'Datos Invalidos',
+                                  icon: Icon(Icons.warning),
+                                  duration: Duration(seconds: 5),
+                                  backgroundColor: Colors.red,
+                                ));
+                              });
+                            }
+                          : null,
                       child: Text("Registrar",
                           style: GoogleFonts.kodchasan(
                             color: Colors.white,
