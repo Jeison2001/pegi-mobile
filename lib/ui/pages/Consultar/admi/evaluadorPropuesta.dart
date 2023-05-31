@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pegi/data/services/peticionesPropuesta.dart';
@@ -69,7 +68,7 @@ class _EvaluadorPropuestaState extends State<EvaluadorPropuesta> {
                   tipo: posicion.data![index].idDocente
                               .toString()
                               .toLowerCase() ==
-                          'Pendiente'
+                          ''
                       ? 'Pendiente'
                       : 'Asignado',
                   estado: true,

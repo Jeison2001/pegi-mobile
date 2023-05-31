@@ -26,6 +26,83 @@ class _CalificarProyectoState extends State<CalificarProyecto> {
   TextEditingController controlRetroalimentacion = TextEditingController();
   ControlProyecto controlp = Get.find();
 
+  String? Retroalimentacion;
+  String? Calificacion;
+  bool areValuesSet = false;
+
+  @override
+  void initState() {
+    super.initState();
+
+    if (!areValuesSet) {
+      controlRetroalimentacion.text = widget.proyecto.retroalimentacion;
+      controlCalificacion.text = widget.proyecto.calificacion;
+      areValuesSet = true;
+    }
+
+    controlCalificacion.addListener(validateForm);
+    controlRetroalimentacion.addListener(validateForm);
+  }
+
+  @override
+  void dispose() {
+    controlCalificacion.dispose();
+    controlRetroalimentacion.dispose();
+    super.dispose();
+  }
+
+  String? validateString0a499(String value) {
+    if (value.isEmpty && controlCalificacion.text.isEmpty) {
+      return null;
+    }
+    if (value.isEmpty) {
+      return 'El campo no puede estar vacío.';
+    }
+    if (value.isEmpty || value.length >= 500) {
+      return 'El campo debe tener entre 1 y 499 caracteres.';
+    }
+    return null; // La validación es exitosa, no hay mensaje de error
+  }
+
+  String? validateNumber(String value) {
+    if (value.isEmpty && controlRetroalimentacion.text.isEmpty) {
+      return null;
+    }
+    if (value.isEmpty && controlRetroalimentacion.text.isNotEmpty) {
+      return 'El campo no puede estar vacío. cuando incluye retroalimentacion';
+    }
+
+    // Verificar si el valor es un número válido
+    if (double.tryParse(value) == null) {
+      return 'Ingresa un número válido.';
+    }
+
+    // Verificar si el número cumple con la condición
+    if (double.tryParse(value)! > 5 || double.tryParse(value)! < 0) {
+      return 'El valor  debe tener entre 0 y 5.';
+    }
+
+    return null; // La validación es exitosa, no hay mensaje de error
+  }
+
+  int validInputsCount = 0;
+  bool isButtonEnabled = false;
+  void validateForm() {
+    setState(() {
+      Retroalimentacion = validateString0a499(controlRetroalimentacion.text);
+      Calificacion = validateNumber(controlCalificacion.text);
+      // Reiniciar el contador de inputs válidos
+      validInputsCount = 0;
+      if (Retroalimentacion == null && Calificacion == null) {
+        // Todos los inputs están validados, habilitar el botón
+        isButtonEnabled = true;
+      } else {
+        // Al menos uno de los inputs tiene un mensaje de error, deshabilitar el botón
+        isButtonEnabled = false;
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -49,6 +126,7 @@ class _CalificarProyectoState extends State<CalificarProyecto> {
                             : const Color.fromRGBO(18, 180, 122, 1),
                     estado: true,
                     tipo: widget.proyecto.estado,
+                    calificacion: widget.proyecto.calificacion.toString(),
                     onPressed: () {},
                     color: Colors.black,
                     fijarIcon: false,
@@ -76,58 +154,70 @@ class _CalificarProyectoState extends State<CalificarProyecto> {
                       vertical: Dimensiones.screenHeight * 0.02),
                   Colors.white,
                   const Color.fromRGBO(30, 30, 30, 1),
+                  validationFunction: validateString0a499,
                 ),
                 Input(
-                  false,
-                  controlCalificacion,
-                  "Calificacion",
-                  const EdgeInsets.all(0),
-                  const EdgeInsets.only(bottom: 8),
-                  const Color.fromRGBO(30, 30, 30, 1),
-                  Colors.white,
-                ),
+                    false,
+                    controlCalificacion,
+                    "Calificacion",
+                    const EdgeInsets.all(0),
+                    const EdgeInsets.only(bottom: 8),
+                    const Color.fromRGBO(30, 30, 30, 1),
+                    Colors.white,
+                    validationFunction: validateNumber),
                 Button(
                   texto: "Enviar",
                   color: const Color.fromRGBO(91, 59, 183, 1),
                   colorTexto: Colors.white,
-                  onPressed: () {
-                    var estado = "Calificado";
-                    if (controlCalificacion.text.isEmpty &&
-                        controlRetroalimentacion.text.isEmpty) {
-                      estado = "Pendiente";
-                    }
-                    var Proyecto = <String, dynamic>{
-                      'idProyecto': widget.proyecto.idProyecto,
-                      'titulo': widget.proyecto.titulo,
-                      'anexos': widget.proyecto.anexos,
-                      'idEstudiante': widget.proyecto.idEstudiante,
-                      'estado': estado,
-                      'retroalimentacion': controlRetroalimentacion.text,
-                      'calificacion': controlCalificacion.text,
-                      'idDocente': widget.proyecto.idDocente,
-                    };
-                    controlp
-                        .modificarProyecto(Proyecto)
-                        .then((value) => {
-                              Get.showSnackbar(const GetSnackBar(
-                                title: 'Regristrar Calificacion',
-                                message: 'Datos registrados Correctamente',
-                                icon: Icon(Icons.gpp_good_outlined),
-                                duration: Duration(seconds: 5),
-                                backgroundColor: Colors.greenAccent,
-                              )),
-                              Get.offAll(() => HomePage(rol: "docente"))
-                            })
-                        .catchError((e) {
-                      Get.showSnackbar(const GetSnackBar(
-                        title: 'Regristrar Calificacion',
-                        message: 'Error al registrar calificacion',
-                        icon: Icon(Icons.warning),
-                        duration: Duration(seconds: 5),
-                        backgroundColor: Colors.red,
-                      ));
-                    });
-                  },
+                  onPressed: isButtonEnabled
+                      ? () {
+                          var estado = "Calificado";
+                          if (controlCalificacion.text.isEmpty &&
+                              controlRetroalimentacion.text.isEmpty) {
+                            estado = "Pendiente";
+                          }
+                          var Proyecto = <String, dynamic>{
+                            'idProyecto': widget.proyecto.idProyecto,
+                            'titulo': widget.proyecto.titulo,
+                            'anexos': widget.proyecto.anexos,
+                            'idEstudiante': widget.proyecto.idEstudiante,
+                            'estado': estado,
+                            'retroalimentacion': controlRetroalimentacion.text,
+                            'calificacion': controlCalificacion.text,
+                            'idDocente': widget.proyecto.idDocente,
+                          };
+                          controlp
+                              .modificarProyecto(Proyecto)
+                              .then((value) => {
+                                    Get.showSnackbar(const GetSnackBar(
+                                      title: 'Regristrar Calificacion',
+                                      message:
+                                          'Datos registrados Correctamente',
+                                      icon: Icon(Icons.gpp_good_outlined),
+                                      duration: Duration(seconds: 5),
+                                      backgroundColor: Colors.greenAccent,
+                                    )),
+                                    Get.offAll(() => HomePage(rol: "docente"))
+                                  })
+                              .catchError((e) {
+                            Get.showSnackbar(const GetSnackBar(
+                              title: 'Regristrar Calificacion',
+                              message: 'Error al registrar calificacion',
+                              icon: Icon(Icons.warning),
+                              duration: Duration(seconds: 5),
+                              backgroundColor: Colors.red,
+                            ));
+                          });
+                        }
+                      : () async {
+                          Get.showSnackbar(const GetSnackBar(
+                            title: 'Calificar Proyecto',
+                            message: 'Por favor verifique los campos',
+                            icon: Icon(Icons.gpp_good_outlined),
+                            duration: Duration(seconds: 5),
+                            backgroundColor: Color.fromARGB(255, 241, 63, 9),
+                          ));
+                        },
                 ),
               ],
             ),

@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pegi/domain/Controllers/controlPropuesta.dart';
@@ -47,6 +46,7 @@ class _AsignarEvaluadorPropuestaState extends State<AsignarEvaluadorPropuesta> {
                 texto: widget.propuesta.titulo.toString(),
                 tipo: widget.propuesta.estado.toString(),
                 estado: true,
+                calificacion: widget.propuesta.calificacion.toString(),
                 colorBoton: widget.propuesta.estado.toString().toLowerCase() ==
                         'pendiente'
                     ? const Color.fromRGBO(91, 59, 183, 1)

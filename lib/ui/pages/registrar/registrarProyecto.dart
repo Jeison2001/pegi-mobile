@@ -202,7 +202,7 @@ class _RegistrarProyectoState extends State<RegistrarProyecto> {
                             }
                           : () async {
                               Get.showSnackbar(const GetSnackBar(
-                                title: 'Regristrar Propuesta',
+                                title: 'Regristrar Proyecto',
                                 message: 'Por favor verifique los campos',
                                 icon: Icon(Icons.gpp_good_outlined),
                                 duration: Duration(seconds: 5),

@@ -5,6 +5,8 @@ import 'package:pegi/ui/utils/Dimensiones.dart';
 class MostrarTodo extends StatefulWidget {
   final String texto;
   final IconData? icon;
+  final IconData? icon2;
+
   final EdgeInsets padding;
   bool fijarIcon;
   final bool? estado;
@@ -12,6 +14,8 @@ class MostrarTodo extends StatefulWidget {
   final Color colorBoton;
   final Color color;
   final VoidCallback onPressed;
+  VoidCallback? onPressed2;
+
   String? calificacion;
   MostrarTodo(
       {super.key,
@@ -24,7 +28,9 @@ class MostrarTodo extends StatefulWidget {
       required this.color,
       required this.fijarIcon,
       this.icon,
-      required this.padding});
+      required this.padding,
+      this.icon2,
+      this.onPressed2});
 
   @override
   State<MostrarTodo> createState() => _MostrarTodoState();
@@ -40,7 +46,7 @@ class _MostrarTodoState extends State<MostrarTodo> {
           left: 0.001,
           right: 0.001),
       child: Container(
-          height: Dimensiones.screenHeight * 0.12,
+          height: Dimensiones.screenHeight * 0.14,
           width: Dimensiones.width90,
           decoration: BoxDecoration(
               borderRadius: const BorderRadius.all(Radius.circular(14)),
@@ -129,18 +135,52 @@ class _MostrarTodoState extends State<MostrarTodo> {
                                   )),
                       ],
                     ),
-                    Align(
-                      alignment: Alignment.topCenter,
-                      child: widget.fijarIcon == false
-                          ? Container()
-                          : IconButton(
-                              onPressed: () {
-                                widget.onPressed();
-                              },
-                              icon: Icon(widget.icon,
-                                  size: 37,
-                                  color: const Color.fromRGBO(91, 59, 183, 1))),
-                    )
+                    Column(
+                      verticalDirection: VerticalDirection.up,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Expanded(
+                          child: Align(
+                            heightFactor: 1.5,
+                            alignment: Alignment.topCenter,
+                            child: widget.fijarIcon == false
+                                ? Container()
+                                : IconButton(
+                                    onPressed: () {
+                                      widget.onPressed();
+                                    },
+                                    icon: Icon(
+                                      widget.icon,
+                                      size: 25,
+                                      color:
+                                          const Color.fromRGBO(91, 59, 183, 1),
+                                    ),
+                                  ),
+                          ),
+                        ),
+                        Expanded(
+                          child: Align(
+                            heightFactor: 1.5,
+                            alignment: Alignment.topCenter,
+                            child: widget.fijarIcon == false &&
+                                    widget.icon2 != null
+                                ? Container()
+                                : IconButton(
+                                    onPressed: () {
+                                      widget.onPressed2!();
+                                    },
+                                    icon: Icon(
+                                      widget.icon2,
+                                      size: 25,
+                                      color:
+                                          const Color.fromRGBO(91, 59, 183, 1),
+                                    ),
+                                  ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ]))),
     );
   }

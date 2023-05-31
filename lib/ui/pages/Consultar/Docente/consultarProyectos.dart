@@ -7,6 +7,7 @@ import 'package:pegi/domain/Controllers/controlProyecto.dart';
 import 'package:pegi/domain/Controllers/controladorUsuario.dart';
 import 'package:pegi/domain/models/proyecto.dart';
 import 'package:pegi/ui/pages/Calificar/calificarProyecto.dart';
+import 'package:pegi/ui/pages/Consultar/Docente/mostrarProyectoDocente.dart';
 import 'package:pegi/ui/utils/Dimensiones.dart';
 import 'package:pegi/ui/widgets/Filter.dart';
 import 'package:pegi/ui/widgets/Header.dart';
@@ -74,6 +75,7 @@ class _ConsultarProyectoDocenteState extends State<ConsultarProyectoDocente> {
               return MostrarTodo(
                 texto: posicion.data![index].titulo.toString(),
                 tipo: posicion.data![index].estado.toString(),
+                calificacion: posicion.data![index].calificacion.toString(),
                 estado: true,
                 colorBoton:
                     posicion.data![index].estado.toString().toLowerCase() ==
@@ -87,13 +89,22 @@ class _ConsultarProyectoDocenteState extends State<ConsultarProyectoDocente> {
                   Get.to(
                       () => CalificarProyecto(proyecto: posicion.data![index]));
                 },
+                onPressed2: () async {
+                  await controlp
+                      .consultarProyectosDocentes(controlu.emailf)
+                      .then((value) => log("consulta Proyecto Docente"));
+                  Get.to(() =>
+                      MostrarProyectoDocente(proyecto: posicion.data![index]));
+                },
                 color: const Color.fromRGBO(30, 30, 30, 1),
                 fijarIcon: true,
                 icon: Icons.edit_outlined,
+                icon2: Icons.visibility,
                 padding: EdgeInsets.only(
                     left: Dimensiones.screenWidth * 0.05,
                     right: Dimensiones.screenWidth * 0.05,
-                    top: Dimensiones.screenHeight * 0.03),
+                    top: Dimensiones.screenHeight * 0.03,
+                    bottom: Dimensiones.screenHeight * 0.03),
               );
             } else if (posicion.hasError) {
               return Text('${posicion.error}');

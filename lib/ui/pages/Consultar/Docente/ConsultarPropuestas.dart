@@ -5,6 +5,7 @@ import 'package:pegi/domain/Controllers/controlPropuesta.dart';
 import 'package:pegi/domain/Controllers/controladorUsuario.dart';
 import 'package:pegi/domain/models/propuesta.dart';
 import 'package:pegi/ui/pages/Calificar/calificarPropuesta.dart';
+import 'package:pegi/ui/pages/Consultar/estudiante/mostrarPropuesta.dart';
 import 'package:pegi/ui/utils/Dimensiones.dart';
 import 'package:pegi/ui/widgets/Mostrar.dart';
 import '../../../widgets/Filter.dart';
@@ -71,6 +72,7 @@ class _ConsultarPropuestaDocenteState extends State<ConsultarPropuestaDocente> {
                 texto: posicion.data![index].titulo.toString(),
                 tipo: posicion.data![index].estado.toString(),
                 estado: true,
+                calificacion: posicion.data![index].calificacion.toString(),
                 colorBoton:
                     posicion.data![index].estado.toString().toLowerCase() ==
                             'pendiente'
@@ -80,13 +82,19 @@ class _ConsultarPropuestaDocenteState extends State<ConsultarPropuestaDocente> {
                   Get.to(() =>
                       CalificarPropuesta(propuesta: posicion.data![index]));
                 },
+                onPressed2: () {
+                  Get.to(
+                      () => MostrarPropuesta(propuesta: posicion.data![index]));
+                },
                 color: const Color.fromRGBO(30, 30, 30, 1),
                 fijarIcon: true,
                 icon: Icons.edit_outlined,
+                icon2: Icons.visibility,
                 padding: EdgeInsets.only(
                     left: Dimensiones.screenWidth * 0.05,
                     right: Dimensiones.screenWidth * 0.05,
-                    top: Dimensiones.screenHeight * 0.03),
+                    top: Dimensiones.screenHeight * 0.03,
+                    bottom: Dimensiones.screenHeight * 0.03),
               );
             } else if (posicion.hasError) {
               return Text('${posicion.error}');

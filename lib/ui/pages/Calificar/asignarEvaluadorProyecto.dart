@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pegi/domain/Controllers/controlProyecto.dart';
@@ -47,6 +46,7 @@ class _AsignarEvaluadorProyectoState extends State<AsignarEvaluadorProyecto> {
             MostrarTodo(
                 texto: widget.proyecto.titulo.toString(),
                 tipo: widget.proyecto.estado.toString(),
+                calificacion: widget.proyecto.calificacion.toString(),
                 estado: true,
                 colorBoton: widget.proyecto.estado.toString().toLowerCase() ==
                         'pendiente'

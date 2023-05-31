@@ -299,7 +299,7 @@ class _RegistrarPropuestaState extends State<RegistrarPropuesta> {
       Bibliografia = validateString0a499(controlBibliografia.text);
 
       // Verificar si todos los inputs están validados correctamente
-      if (controlTitulo == null &&
+      if (Titulo == null &&
           Nombre == null &&
           Apellido == null &&
           Identificacion == null &&
