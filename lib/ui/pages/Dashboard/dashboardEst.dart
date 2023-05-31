@@ -317,7 +317,7 @@ class _DashboardEstudianteState extends State<DashboardEstudiante> {
                                     children: [
                                       Icon(
                                         Icons.calendar_month,
-                                        size: Dimensiones.screenWidth * 0.04,
+                                        size: Dimensiones.screenWidth * 0.0387,
                                         color: const Color.fromARGB(
                                             255, 255, 255, 255),
                                       ),

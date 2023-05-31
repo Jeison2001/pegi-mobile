@@ -163,33 +163,33 @@ class _RegistrarPropuestaState extends State<RegistrarPropuesta> {
 
   @override
   void dispose() {
-    controlTitulo..dispose();
-    controlNombre..dispose();
-    controlApellido..dispose();
-    controlIdentificacion..dispose();
-    controlNumero..dispose();
-    controlPrograma..dispose();
-    controlCorreo..dispose();
-    controlCelular..dispose();
-    controlNombre2..dispose();
-    controlApellido2..dispose();
-    controlIdentificacion2..dispose();
-    controlNumero2..dispose();
-    controlPrograma2..dispose();
-    controlCorreo2..dispose();
-    controlCelular2..dispose();
-    controlLineaInvestigacion..dispose();
+    controlTitulo.dispose();
+    controlNombre.dispose();
+    controlApellido.dispose();
+    controlIdentificacion.dispose();
+    controlNumero.dispose();
+    controlPrograma.dispose();
+    controlCorreo.dispose();
+    controlCelular.dispose();
+    controlNombre2.dispose();
+    controlApellido2.dispose();
+    controlIdentificacion2.dispose();
+    controlNumero2.dispose();
+    controlPrograma2.dispose();
+    controlCorreo2.dispose();
+    controlCelular2.dispose();
+    controlLineaInvestigacion.dispose();
 
-    controlSublineaInvestigacion..dispose();
+    controlSublineaInvestigacion.dispose();
     controlAreaTematica..dispose();
 
     controlGrupoInvestigacion..dispose();
-    controlPlanteamiento..dispose();
-    controlJustificacion..dispose();
-    controlGeneral..dispose();
-    controlEspecifico..dispose();
-    controlBibliografia..dispose();
-    controlAnexo..dispose();
+    controlPlanteamiento.dispose();
+    controlJustificacion.dispose();
+    controlGeneral.dispose();
+    controlEspecifico.dispose();
+    controlBibliografia.dispose();
+    controlAnexo.dispose();
     super.dispose();
   }
 
@@ -243,12 +243,9 @@ class _RegistrarPropuestaState extends State<RegistrarPropuesta> {
       return 'Ingresa un número válido.';
     }
 
-    // Convertir el valor a un número entero
-    int number = int.parse(value);
-
     // Verificar si el número cumple con la condición
-    if (number < 5 || number > 10) {
-      return 'El número debe estar entre 5 y 10.';
+    if (value.length < 5 || value.length > 10) {
+      return 'El número debe tener entre 5 y 10 dígitos.';
     }
 
     return null; // La validación es exitosa, no hay mensaje de error
@@ -268,7 +265,7 @@ class _RegistrarPropuestaState extends State<RegistrarPropuesta> {
     int number = int.parse(value);
 
     // Verificar si el número cumple con la condición
-    if (number != 10) {
+    if (value.length != 10) {
       return 'El número debe ser de 10 digitos.';
     }
 
@@ -309,7 +306,6 @@ class _RegistrarPropuestaState extends State<RegistrarPropuesta> {
       General = validateString0a499(controlGeneral.text);
       Especifico = validateString0a499(controlEspecifico.text);
       Bibliografia = validateString0a499(controlBibliografia.text);
-      Anexo = validateString0a499(controlAnexo.text);
 
       // Verificar si todos los inputs están validados correctamente
       if (controlTitulo == null &&
@@ -335,8 +331,7 @@ class _RegistrarPropuestaState extends State<RegistrarPropuesta> {
           Justificacion == null &&
           General == null &&
           Especifico == null &&
-          Bibliografia == null &&
-          Anexo == null) {
+          Bibliografia == null) {
         // Todos los inputs están validados, habilitar el botón
         isButtonEnabled = true;
       } else {
@@ -762,7 +757,8 @@ class _RegistrarPropuestaState extends State<RegistrarPropuesta> {
                             texto: "Enviar",
                             color: const Color.fromRGBO(91, 59, 183, 1),
                             colorTexto: Colors.white,
-                            onPressed: isButtonEnabled
+                            onPressed: isButtonEnabled &&
+                                    pickedFileextencion?.toLowerCase() == 'pdf'
                                 ? () async {
                                     String index =
                                         await controlI.consultarIndex();

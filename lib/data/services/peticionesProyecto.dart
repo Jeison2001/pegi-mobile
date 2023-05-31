@@ -19,12 +19,15 @@ class PeticionesProyecto {
 
   static Future<void> crearProyecto(Map<String, dynamic> proyecto, String? file,
       String? pickedFileextencion) async {
-    var url = '';
+    var url;
     if (file != null) {
       url = await uploadFile(
           file, proyecto['idProyecto'], uploadTask, pickedFileextencion);
-    }
+    } else {
+      log("es null");
 
+      url = '';
+    }
     proyecto['anexos'] = url.toString();
 
     await _db
@@ -41,7 +44,7 @@ class PeticionesProyecto {
     if (file != null) {
       final ref = FirebaseStorage.instance.ref().child(path);
       log(file.toString());
-      uploadTask = ref.putString(file);
+      uploadTask = ref.putFile(File(file));
       final snaphot = await uploadTask.whenComplete(() {});
 
       final urlDownload = await snaphot.ref.getDownloadURL();

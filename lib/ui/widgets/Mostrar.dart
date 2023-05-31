@@ -12,10 +12,12 @@ class MostrarTodo extends StatefulWidget {
   final Color colorBoton;
   final Color color;
   final VoidCallback onPressed;
+  String? calificacion;
   MostrarTodo(
       {super.key,
       required this.texto,
       this.tipo,
+      this.calificacion,
       this.estado = false,
       required this.colorBoton,
       required this.onPressed,
@@ -32,11 +34,13 @@ class _MostrarTodoState extends State<MostrarTodo> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(
-          vertical: Dimensiones.screenHeight * 0.02,
-          horizontal: Dimensiones.screenWidth * 0.001),
+      padding: EdgeInsets.only(
+          top: Dimensiones.screenHeight * 0.02,
+          bottom: 0,
+          left: 0.001,
+          right: 0.001),
       child: Container(
-          height: Dimensiones.screenHeight * 0.18,
+          height: Dimensiones.screenHeight * 0.12,
           width: Dimensiones.width90,
           decoration: BoxDecoration(
               borderRadius: const BorderRadius.all(Radius.circular(14)),
@@ -68,27 +72,55 @@ class _MostrarTodoState extends State<MostrarTodo> {
                         Container(
                             child: widget.estado == false
                                 ? Container()
-                                : Container(
-                                    width: Dimensiones.screenWidth * 0.25,
-                                    height: Dimensiones.screenHeight * 0.03,
-                                    padding: const EdgeInsets.only(top: 2.0),
-                                    decoration: BoxDecoration(
-                                      borderRadius: const BorderRadius.only(
-                                          bottomLeft: Radius.circular(80),
-                                          bottomRight: Radius.circular(80),
-                                          topLeft: Radius.circular(80),
-                                          topRight: Radius.circular(80)),
-                                      color: widget.colorBoton,
-                                    ),
-                                    child: Text(
-                                      widget.tipo.toString(),
-                                      textAlign: TextAlign.center,
-                                      style: GoogleFonts.montserrat(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 13.0,
-                                          color: Color.fromARGB(
-                                              255, 221, 221, 221)),
-                                    ),
+                                : Row(
+                                    children: [
+                                      Container(
+                                        width: Dimensiones.screenWidth * 0.25,
+                                        height: Dimensiones.screenHeight * 0.03,
+                                        padding:
+                                            const EdgeInsets.only(top: 2.0),
+                                        decoration: BoxDecoration(
+                                          borderRadius: const BorderRadius.only(
+                                              bottomLeft: Radius.circular(80),
+                                              bottomRight: Radius.circular(80),
+                                              topLeft: Radius.circular(80),
+                                              topRight: Radius.circular(80)),
+                                          color: widget.colorBoton,
+                                        ),
+                                        child: Text(
+                                          widget.tipo.toString(),
+                                          textAlign: TextAlign.center,
+                                          style: GoogleFonts.montserrat(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 13.0,
+                                              color: Color.fromARGB(
+                                                  255, 221, 221, 221)),
+                                        ),
+                                      ),
+                                      Container(
+                                        width: Dimensiones.screenWidth * 0.25,
+                                        height: Dimensiones.screenHeight * 0.03,
+                                        padding:
+                                            const EdgeInsets.only(top: 2.0),
+                                        decoration: BoxDecoration(
+                                          borderRadius: const BorderRadius.only(
+                                              bottomLeft: Radius.circular(80),
+                                              bottomRight: Radius.circular(80),
+                                              topLeft: Radius.circular(80),
+                                              topRight: Radius.circular(80)),
+                                          color: Colors.transparent,
+                                        ),
+                                        child: Text(
+                                          "Nota: ${widget.calificacion}",
+                                          textAlign: TextAlign.center,
+                                          style: GoogleFonts.montserrat(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 13.0,
+                                              color: Color.fromARGB(
+                                                  255, 221, 221, 221)),
+                                        ),
+                                      )
+                                    ],
                                   )),
                       ],
                     ),

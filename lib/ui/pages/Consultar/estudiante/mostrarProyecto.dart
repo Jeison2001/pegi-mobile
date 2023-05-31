@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pegi/domain/models/proyecto.dart';
@@ -11,6 +13,13 @@ import '../../../../data/services/peticionesProyecto.dart';
 import '../../../../domain/Controllers/controladorUsuario.dart';
 import '../../Calificar/calificarProyecto.dart';
 
+import 'package:path_provider/path_provider.dart';
+import 'package:permission_handler/permission_handler.dart';
+import 'package:http/http.dart' as http;
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:path/path.dart' as path;
+import 'package:open_file/open_file.dart';
+
 class MostrarProyecto extends StatefulWidget {
   final Proyecto proyecto;
 
@@ -21,6 +30,8 @@ class MostrarProyecto extends StatefulWidget {
 }
 
 class _MostrarProyectoState extends State<MostrarProyecto> {
+  final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+      FlutterLocalNotificationsPlugin();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -75,10 +86,55 @@ class _MostrarProyectoState extends State<MostrarProyecto> {
                     const Color.fromRGBO(30, 30, 30, 1),
                     const Color.fromARGB(255, 221, 221, 221)),
                 InputDownload(
-                    texto: "Descargar documento",
-                    icon: Icons.download_rounded,
-                    color: const Color.fromRGBO(30, 30, 30, 1),
-                    onPressed: () {}),
+                  texto: "Descargar documento",
+                  icon: Icons.download_rounded,
+                  color: const Color.fromRGBO(30, 30, 30, 1),
+                  onPressed: () async {
+                    var status = await Permission.storage.status;
+                    if (!status.isGranted) {
+                      await Permission.storage.request();
+                    }
+                    final tempDir = (await getTemporaryDirectory()).path;
+                    final uri = Uri.parse(widget.proyecto.anexos);
+                    final response = await http.get(uri);
+                    final fileName = path.basename(uri.path);
+                    String filePath = tempDir + "/" + fileName;
+                    final file = File(filePath);
+                    await file.writeAsBytes(response.bodyBytes);
+                    await OpenFile.open(filePath);
+
+                    // Inicializa el plugin de notificaciones locales
+                    FlutterLocalNotificationsPlugin
+                        flutterLocalNotificationsPlugin =
+                        FlutterLocalNotificationsPlugin();
+                    var initializationSettingsAndroid =
+                        AndroidInitializationSettings('@mipmap/ic_launcher');
+                    var initializationSettingsIOS = IOSInitializationSettings();
+                    var initializationSettings = InitializationSettings(
+                        android: initializationSettingsAndroid,
+                        iOS: initializationSettingsIOS);
+                    await flutterLocalNotificationsPlugin
+                        .initialize(initializationSettings);
+
+// Configura los detalles de la notificación
+                    var androidPlatformChannelSpecifics =
+                        AndroidNotificationDetails(
+                            'your channel id', 'your channel name',
+                            importance: Importance.max,
+                            priority: Priority.high,
+                            showWhen: false);
+                    var iOSPlatformChannelSpecifics = IOSNotificationDetails();
+                    var platformChannelSpecifics = NotificationDetails(
+                        android: androidPlatformChannelSpecifics,
+                        iOS: iOSPlatformChannelSpecifics);
+                    await flutterLocalNotificationsPlugin.show(
+                        0,
+                        'Descarga completada',
+                        'El archivo $fileName se ha descargado correctamente',
+                        platformChannelSpecifics,
+                        payload: 'item x');
+                  },
+                ),
               ]),
         ),
       ),
