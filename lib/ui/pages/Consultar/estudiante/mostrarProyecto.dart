@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:pegi/domain/models/proyecto.dart';
 import 'package:pegi/ui/utils/Dimensiones.dart';
 import 'package:pegi/ui/widgets/Header.dart';
@@ -9,9 +8,6 @@ import 'package:pegi/ui/widgets/Input.dart';
 import 'package:pegi/ui/widgets/Mostrar.dart';
 import 'package:pegi/ui/widgets/inputText.dart';
 
-import '../../../../data/services/peticionesProyecto.dart';
-import '../../../../domain/Controllers/controladorUsuario.dart';
-import '../../Calificar/calificarProyecto.dart';
 
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -98,7 +94,7 @@ class _MostrarProyectoState extends State<MostrarProyecto> {
                     final uri = Uri.parse(widget.proyecto.anexos);
                     final response = await http.get(uri);
                     final fileName = path.basename(uri.path);
-                    String filePath = tempDir + "/" + fileName;
+                    String filePath = "$tempDir/$fileName";
                     final file = File(filePath);
                     await file.writeAsBytes(response.bodyBytes);
                     await OpenFile.open(filePath);
@@ -108,8 +104,8 @@ class _MostrarProyectoState extends State<MostrarProyecto> {
                         flutterLocalNotificationsPlugin =
                         FlutterLocalNotificationsPlugin();
                     var initializationSettingsAndroid =
-                        AndroidInitializationSettings('@mipmap/ic_launcher');
-                    var initializationSettingsIOS = IOSInitializationSettings();
+                        const AndroidInitializationSettings('@mipmap/ic_launcher');
+                    var initializationSettingsIOS = const IOSInitializationSettings();
                     var initializationSettings = InitializationSettings(
                         android: initializationSettingsAndroid,
                         iOS: initializationSettingsIOS);
@@ -118,12 +114,12 @@ class _MostrarProyectoState extends State<MostrarProyecto> {
 
 // Configura los detalles de la notificación
                     var androidPlatformChannelSpecifics =
-                        AndroidNotificationDetails(
+                        const AndroidNotificationDetails(
                             'your channel id', 'your channel name',
                             importance: Importance.max,
                             priority: Priority.high,
                             showWhen: false);
-                    var iOSPlatformChannelSpecifics = IOSNotificationDetails();
+                    var iOSPlatformChannelSpecifics = const IOSNotificationDetails();
                     var platformChannelSpecifics = NotificationDetails(
                         android: androidPlatformChannelSpecifics,
                         iOS: iOSPlatformChannelSpecifics);

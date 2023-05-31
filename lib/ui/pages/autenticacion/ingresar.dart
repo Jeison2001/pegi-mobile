@@ -1,10 +1,8 @@
-import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pegi/domain/Controllers/controladorUsuario.dart';
-import 'package:pegi/domain/models/usuario.dart';
 import 'package:pegi/ui/pages/home.dart';
 import 'package:pegi/ui/utils/Dimensiones.dart';
 import 'package:pegi/ui/widgets/Icons.dart';
@@ -40,7 +38,7 @@ class _IngresarState extends State<Ingresar> {
   }
 
   String? validateEmail(String value) {
-    if (value == null || value.isEmpty) {
+    if (value.isEmpty) {
       emailError = 'El correo no puede estar vacío.';
     } else if (!value.endsWith("@unicesar.edu.co")) {
       emailError = 'El correo debe terminar con "@unicesar.edu.co".';
@@ -51,9 +49,9 @@ class _IngresarState extends State<Ingresar> {
   }
 
   String? validatePassword(String value) {
-    if (value == null || value.isEmpty) {
+    if (value.isEmpty) {
       passwordError = 'La contraseña no puede estar vacía.';
-    } else if (value.length < 1 || value.length >= 50) {
+    } else if (value.isEmpty || value.length >= 50) {
       passwordError = 'La contraseña debe tener entre 1 y 49 caracteres.';
     } else {
       passwordError = null; // Limpiar el mensaje de error
@@ -98,9 +96,9 @@ class _IngresarState extends State<Ingresar> {
             top: Dimensiones.height5,
             left: Dimensiones.width5,
             child: IconButton(
-              icon: AppIcon(
+              icon: const AppIcon(
                 iconD: Icons.arrow_back_ios,
-                iconColor: const Color.fromARGB(255, 202, 209, 209),
+                iconColor: Color.fromARGB(255, 202, 209, 209),
               ),
               onPressed: () {
                 Get.offAllNamed('/principal');
@@ -223,19 +221,19 @@ class _IngresarState extends State<Ingresar> {
                               });
                             }
                           : null,
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.black,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(50),
+                        ),
+                        minimumSize: const Size(400, 50),
+                      ),
                       child: Text(
                         "Ingresar",
                         style: GoogleFonts.kodchasan(
                           color: Colors.white,
                           fontSize: 13,
                         ),
-                      ),
-                      style: ElevatedButton.styleFrom(
-                        primary: Colors.black,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(50),
-                        ),
-                        minimumSize: const Size(400, 50),
                       ),
                     ),
                   ),

@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pegi/ui/pages/consultar/estudiante/consultarPropuesta.dart';
-import 'package:pegi/ui/pages/consultar/estudiante/consultarProyecto.dart';
 import 'package:pegi/ui/pages/registrar/registrarPropuesta.dart';
 import 'package:pegi/ui/pages/registrar/registrarProyecto.dart';
 import 'package:pegi/ui/utils/Dimensiones.dart';

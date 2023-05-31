@@ -5,7 +5,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart' as fs;
 import 'package:firebase_storage/firebase_storage.dart';
 
-import 'package:pegi/domain/models/index.dart';
 
 class PeticionesIndex {
   static final fs.FirebaseStorage storage = fs.FirebaseStorage.instance;

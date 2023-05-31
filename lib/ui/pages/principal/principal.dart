@@ -78,37 +78,37 @@ class Principal extends StatelessWidget {
                             onPressed: () {
                               Get.offAllNamed('/ingresar');
                             },
-                            child: Text("Ingresar",
-                                style: GoogleFonts.kodchasan(
-                                  color: Colors.white,
-                                  fontSize: 13,
-                                )),
                             style: ElevatedButton.styleFrom(
-                              primary: Colors.black,
+                              backgroundColor: Colors.black,
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(50),
                               ),
                               minimumSize: Size(Dimensiones.width35,
                                   Dimensiones.buttonHeight),
                             ),
+                            child: Text("Ingresar",
+                                style: GoogleFonts.kodchasan(
+                                  color: Colors.white,
+                                  fontSize: 13,
+                                )),
                           ),
                           ElevatedButton(
                             onPressed: () {
                               Get.offAllNamed('/registrar');
                             },
+                            style: ElevatedButton.styleFrom(
+                                backgroundColor: Colors.white,
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(50),
+                                    side: const BorderSide(
+                                        color: Colors.black, width: 1.5)),
+                                minimumSize: Size(Dimensiones.width35,
+                                    Dimensiones.buttonHeight)),
                             child: Text("Registrarse",
                                 style: GoogleFonts.kodchasan(
                                   color: Colors.black,
                                   fontSize: 13,
                                 )),
-                            style: ElevatedButton.styleFrom(
-                                primary: Colors.white,
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(50),
-                                    side: BorderSide(
-                                        color: Colors.black, width: 1.5)),
-                                minimumSize: Size(Dimensiones.width35,
-                                    Dimensiones.buttonHeight)),
                           )
                         ],
                       ),

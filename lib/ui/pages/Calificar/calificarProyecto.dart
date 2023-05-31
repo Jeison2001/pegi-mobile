@@ -1,11 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:pegi/domain/models/proyecto.dart';
-import 'package:pegi/ui/pages/Consultar/Docente/consultarDocente.dart';
-import 'package:pegi/ui/pages/Consultar/Docente/consultarProyectos.dart';
-import 'package:pegi/ui/pages/Consultar/estudiante/consultarProyecto.dart';
 import 'package:pegi/ui/utils/Dimensiones.dart';
 import 'package:pegi/ui/widgets/Button.dart';
 import 'package:pegi/ui/widgets/Header.dart';

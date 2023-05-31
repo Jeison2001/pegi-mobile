@@ -68,7 +68,7 @@ class _InputState extends State<Input> {
           if (showError && widget.validationFunction != null)
             Text(
               widget.validationFunction!(widget.controlador.text) ?? '',
-              style: TextStyle(color: Colors.red),
+              style: const TextStyle(color: Colors.red),
             ),
         ],
       ),
@@ -140,7 +140,7 @@ class _InputMediumState extends State<InputMedium> {
           if (showError && widget.validationFunction != null)
             Text(
               widget.validationFunction!(widget.controlador.text) ?? '',
-              style: TextStyle(color: Colors.red),
+              style: const TextStyle(color: Colors.red),
             ),
         ],
       ),
@@ -156,7 +156,7 @@ class InputDownload extends StatelessWidget {
   final Function()?
       validationFunction; // Atributo para la función de validación
 
-  InputDownload({
+  const InputDownload({
     required this.texto,
     required this.icon,
     required this.color,
@@ -188,7 +188,7 @@ class InputDownload extends StatelessWidget {
                 child: Icon(
                   icon,
                   size: 60.0,
-                  color: Color.fromARGB(255, 119, 116, 116),
+                  color: const Color.fromARGB(255, 119, 116, 116),
                 ),
               ),
               Text(
@@ -202,7 +202,7 @@ class InputDownload extends StatelessWidget {
               if (validationFunction != null) // Mostrar mensaje de error
                 Text(
                   validationFunction!(),
-                  style: TextStyle(color: Colors.red),
+                  style: const TextStyle(color: Colors.red),
                 ),
             ],
           ),

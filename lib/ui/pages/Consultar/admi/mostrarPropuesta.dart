@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pegi/domain/models/propuesta.dart';
 import 'package:pegi/ui/utils/Dimensiones.dart';
@@ -8,7 +7,6 @@ import 'package:pegi/ui/widgets/Mostrar.dart';
 
 import '../../../widgets/Button.dart';
 import '../../../widgets/Input.dart';
-import '../../Calificar/asignarEvaluadorPropuesta.dart';
 
 class MostrarPropuesta extends StatefulWidget {
   final Propuesta propuesta;
@@ -288,7 +286,7 @@ class _MostrarPropuestaState extends State<MostrarPropuesta> {
                           children: [
                             Button(
                               texto: "Atras",
-                              color: Color.fromARGB(255, 66, 66, 66),
+                              color: const Color.fromARGB(255, 66, 66, 66),
                               colorTexto: Colors.white,
                               onPressed: () {
                                 setState(() => _activeCurrentStep -= 1);
@@ -339,7 +337,7 @@ class _MostrarPropuestaState extends State<MostrarPropuesta> {
                           children: [
                             Button(
                               texto: "Atras",
-                              color: Color.fromARGB(255, 66, 66, 66),
+                              color: const Color.fromARGB(255, 66, 66, 66),
                               colorTexto: Colors.white,
                               onPressed: () {
                                 setState(() => _activeCurrentStep -= 1);
@@ -390,7 +388,7 @@ class _MostrarPropuestaState extends State<MostrarPropuesta> {
                           children: [
                             Button(
                               texto: "Atras",
-                              color: Color.fromARGB(255, 66, 66, 66),
+                              color: const Color.fromARGB(255, 66, 66, 66),
                               colorTexto: Colors.white,
                               onPressed: () {
                                 setState(() => _activeCurrentStep -= 1);
@@ -438,7 +436,7 @@ class _MostrarPropuestaState extends State<MostrarPropuesta> {
                           children: [
                             Button(
                               texto: "Atras",
-                              color: Color.fromARGB(255, 66, 66, 66),
+                              color: const Color.fromARGB(255, 66, 66, 66),
                               colorTexto: Colors.white,
                               onPressed: () {
                                 setState(() => _activeCurrentStep -= 1);

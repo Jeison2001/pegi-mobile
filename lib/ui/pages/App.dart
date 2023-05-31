@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:pegi/ui/pages/home.dart';
 import 'package:pegi/ui/pages/principal/principal.dart';
 import 'package:pegi/ui/pages/autenticacion/ingresar.dart';
 import 'package:pegi/ui/pages/autenticacion/registrar.dart';

@@ -4,12 +4,6 @@ import 'dart:io';
 import 'package:firebase_storage/firebase_storage.dart' as fs;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:get/get.dart';
-import 'package:get/get_core/get_core.dart';
-import 'package:pegi/domain/models/index.dart';
 import 'package:pegi/domain/models/proyecto.dart';
 
 class PeticionesProyecto {
@@ -39,7 +33,7 @@ class PeticionesProyecto {
 
   static Future<dynamic> uploadFile(String? file, idProyecto,
       UploadTask? uploadTask, String? pickedFileextencion) async {
-    var r;
+    String? r;
     final path = 'anexo/$idProyecto.$pickedFileextencion';
     if (file != null) {
       final ref = FirebaseStorage.instance.ref().child(path);

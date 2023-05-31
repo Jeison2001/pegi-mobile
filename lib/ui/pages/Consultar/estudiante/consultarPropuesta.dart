@@ -2,13 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pegi/domain/Controllers/controlPropuesta.dart';
 import 'package:pegi/domain/models/propuesta.dart';
-import 'package:pegi/ui/pages/Consultar/estudiante/consultarEstudiante.dart';
 import 'package:pegi/ui/pages/Consultar/estudiante/mostrarPropuesta.dart';
 import 'package:pegi/ui/pages/home.dart';
 import 'package:pegi/ui/utils/Dimensiones.dart';
 import 'package:pegi/ui/widgets/Consulta.dart';
 import 'package:pegi/ui/widgets/Header.dart';
-import 'package:pegi/ui/widgets/Mostrar.dart';
 
 import '../../../../data/services/peticionesPropuesta.dart';
 import '../../../../domain/Controllers/controladorUsuario.dart';

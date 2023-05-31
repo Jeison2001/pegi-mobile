@@ -1,13 +1,8 @@
 import 'dart:developer';
-import 'dart:typed_data';
 
 import 'package:file_picker/file_picker.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:pegi/ui/pages/registrar/registrar.dart';
 import 'package:pegi/ui/widgets/Input.dart';
 
 import '../../../domain/Controllers/controlProyecto.dart';
@@ -15,7 +10,6 @@ import '../../../domain/Controllers/controladorIndex.dart';
 import '../../../domain/Controllers/controladorUsuario.dart';
 import '../../utils/Dimensiones.dart';
 import '../../widgets/Button.dart';
-import '../../widgets/Filter.dart';
 import '../../widgets/Header.dart';
 import '../home.dart';
 
@@ -53,20 +47,20 @@ class _RegistrarProyectoState extends State<RegistrarProyecto> {
   int validInputsCount = 0;
   bool isButtonEnabled = false;
   String? validateString0a50(String value) {
-    if (value == null || value.isEmpty) {
+    if (value.isEmpty) {
       return 'El campo no puede estar vacío.';
     }
-    if (value.length < 1 || value.length > 50) {
+    if (value.isEmpty || value.length > 50) {
       return 'El campo debe tener entre 1 y 50 caracteres.';
     }
     return null; // La validación es exitosa, no hay mensaje de error
   }
 
   String? validateString0a499(String value) {
-    if (value == null || value.isEmpty) {
+    if (value.isEmpty) {
       return 'El campo no puede estar vacío.';
     }
-    if (value.length < 1 || value.length >= 500) {
+    if (value.isEmpty || value.length >= 500) {
       return 'El campo debe tener entre 1 y 499 caracteres.';
     }
     return null; // La validación es exitosa, no hay mensaje de error
@@ -91,7 +85,7 @@ class _RegistrarProyectoState extends State<RegistrarProyecto> {
       // Reiniciar el contador de inputs válidos
       validInputsCount = 0;
       Titulo = validateString0a50(controlTitulo.text);
-      print("${Titulo} y ${Anexo}");
+      print("$Titulo y $Anexo");
       // Verificar la validez de los inputs
       if (Titulo == null) {
         isButtonEnabled = true;

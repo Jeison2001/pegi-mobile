@@ -12,7 +12,7 @@ class Calendar extends StatefulWidget {
 
 class _CalendarState extends State<Calendar> {
   final today = DateTime.now();
-  final yesterday = DateTime.now().subtract(Duration(days: 1));
+  final yesterday = DateTime.now().subtract(const Duration(days: 1));
   final tomorrow = DateTime.now().add(const Duration(days: 1));
 
   @override

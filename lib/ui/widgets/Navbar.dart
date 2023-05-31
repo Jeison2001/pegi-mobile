@@ -35,13 +35,13 @@ class Navbar extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Text(
-                'Hola, ' + rol,
+                'Hola, $rol',
                 style: GoogleFonts.montserrat(
                     color: Colors.white,
                     fontSize: 18,
                     fontWeight: FontWeight.normal),
               ),
-              SizedBox(height: 5),
+              const SizedBox(height: 5),
               Text('sé productivo hoy',
                   style: GoogleFonts.montserrat(
                       color: Colors.white,

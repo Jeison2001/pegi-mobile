@@ -1,8 +1,6 @@
 import 'dart:developer';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:pegi/data/services/peticionesPropuesta.dart';
 import 'package:get/get.dart';
 import 'package:pegi/domain/models/proyecto.dart';
 

@@ -1,10 +1,8 @@
-import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pegi/domain/Controllers/controlPropuesta.dart';
 import 'package:pegi/domain/models/propuesta.dart';
-import 'package:pegi/ui/pages/Consultar/admi/evaluadorPropuesta.dart';
 import 'package:pegi/ui/widgets/Header.dart';
 import 'package:pegi/ui/widgets/Button.dart';
 
@@ -92,7 +90,7 @@ class _AsignarEvaluadorPropuestaState extends State<AsignarEvaluadorPropuesta> {
                   elevation: 16,
                   style: const TextStyle(color: Colors.white),
                   borderRadius: BorderRadius.circular(20),
-                  dropdownColor: Color.fromRGBO(30, 30, 30, 1),
+                  dropdownColor: const Color.fromRGBO(30, 30, 30, 1),
                   underline: Container(
                     color: const Color.fromARGB(255, 119, 119, 119),
                   ),

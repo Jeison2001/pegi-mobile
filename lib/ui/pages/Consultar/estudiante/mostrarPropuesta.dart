@@ -279,7 +279,7 @@ class _MostrarPropuestaState extends State<MostrarPropuesta> {
                       children: [
                         Button(
                           texto: "Atras",
-                          color: Color.fromARGB(255, 66, 66, 66),
+                          color: const Color.fromARGB(255, 66, 66, 66),
                           colorTexto: Colors.white,
                           onPressed: () {
                             setState(() => _activeCurrentStep -= 1);
@@ -327,7 +327,7 @@ class _MostrarPropuestaState extends State<MostrarPropuesta> {
                       children: [
                         Button(
                           texto: "Atras",
-                          color: Color.fromARGB(255, 66, 66, 66),
+                          color: const Color.fromARGB(255, 66, 66, 66),
                           colorTexto: Colors.white,
                           onPressed: () {
                             setState(() => _activeCurrentStep -= 1);
@@ -375,7 +375,7 @@ class _MostrarPropuestaState extends State<MostrarPropuesta> {
                       children: [
                         Button(
                           texto: "Atras",
-                          color: Color.fromARGB(255, 66, 66, 66),
+                          color: const Color.fromARGB(255, 66, 66, 66),
                           colorTexto: Colors.white,
                           onPressed: () {
                             setState(() => _activeCurrentStep -= 1);
@@ -422,7 +422,7 @@ class _MostrarPropuestaState extends State<MostrarPropuesta> {
                         final uri = Uri.parse(widget.propuesta.anexos);
                         final response = await http.get(uri);
                         final fileName = path.basename(uri.path);
-                        String filePath = tempDir + "/" + fileName;
+                        String filePath = "$tempDir/$fileName";
                         final file = File(filePath);
                         await file.writeAsBytes(response.bodyBytes);
                         await OpenFile.open(filePath);
@@ -432,10 +432,10 @@ class _MostrarPropuestaState extends State<MostrarPropuesta> {
                             flutterLocalNotificationsPlugin =
                             FlutterLocalNotificationsPlugin();
                         var initializationSettingsAndroid =
-                            AndroidInitializationSettings(
+                            const AndroidInitializationSettings(
                                 '@mipmap/ic_launcher');
                         var initializationSettingsIOS =
-                            IOSInitializationSettings();
+                            const IOSInitializationSettings();
                         var initializationSettings = InitializationSettings(
                             android: initializationSettingsAndroid,
                             iOS: initializationSettingsIOS);
@@ -444,13 +444,13 @@ class _MostrarPropuestaState extends State<MostrarPropuesta> {
 
 // Configura los detalles de la notificación
                         var androidPlatformChannelSpecifics =
-                            AndroidNotificationDetails(
+                            const AndroidNotificationDetails(
                                 'your channel id', 'your channel name',
                                 importance: Importance.max,
                                 priority: Priority.high,
                                 showWhen: false);
                         var iOSPlatformChannelSpecifics =
-                            IOSNotificationDetails();
+                            const IOSNotificationDetails();
                         var platformChannelSpecifics = NotificationDetails(
                             android: androidPlatformChannelSpecifics,
                             iOS: iOSPlatformChannelSpecifics);
@@ -468,7 +468,7 @@ class _MostrarPropuestaState extends State<MostrarPropuesta> {
                       children: [
                         Button(
                           texto: "Atras",
-                          color: Color.fromARGB(255, 66, 66, 66),
+                          color: const Color.fromARGB(255, 66, 66, 66),
                           colorTexto: Colors.white,
                           onPressed: () {
                             setState(() => _activeCurrentStep -= 1);

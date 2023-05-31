@@ -8,8 +8,6 @@ import 'package:pegi/ui/widgets/Mostrar.dart';
 
 import '../../../../data/services/peticionesProyecto.dart';
 import '../../../../domain/Controllers/controladorUsuario.dart';
-import '../../Calificar/asignarEvaluadorPropuesta.dart';
-import '../../Calificar/calificarProyecto.dart';
 
 class MostrarProyecto extends StatefulWidget {
   final Proyecto proyecto;

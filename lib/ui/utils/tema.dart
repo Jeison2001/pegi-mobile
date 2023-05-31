@@ -17,24 +17,24 @@ class Tema with ChangeNotifier {
       backgroundColor: Colors.white,
       scaffoldBackgroundColor: Colors.white,
       textTheme: const TextTheme(
-        headline1: TextStyle(color: Colors.black),
-        headline2: TextStyle(color: Colors.white),
-        bodyText1: TextStyle(color: Colors.black),
-        bodyText2: TextStyle(color: Colors.white),
+        displayLarge: TextStyle(color: Colors.black),
+        displayMedium: TextStyle(color: Colors.white),
+        bodyLarge: TextStyle(color: Colors.black),
+        bodyMedium: TextStyle(color: Colors.white),
       ),
     );
   }
 
   static ThemeData get temaOscuro {
     return ThemeData(
-      primaryColor: Color.fromARGB(51, 255, 189, 244),
-      backgroundColor: Colors.black,
+      primaryColor: const Color.fromARGB(51, 255, 189, 244),
       scaffoldBackgroundColor: Colors.black,
+      backgroundColor: Colors.black,
       textTheme: const TextTheme(
-        headline1: TextStyle(color: Colors.white),
-        headline2: TextStyle(color: Colors.black),
-        bodyText1: TextStyle(color: Colors.white),
-        bodyText2: TextStyle(color: Colors.black),
+        displayLarge: TextStyle(color: Colors.white),
+        displayMedium: TextStyle(color: Colors.black),
+        bodyLarge: TextStyle(color: Colors.white),
+        bodyMedium: TextStyle(color: Colors.black),
       ),
     );
   }

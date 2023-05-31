@@ -7,7 +7,7 @@ class Button extends StatefulWidget {
   final Color color;
   final Color colorTexto;
   final VoidCallback onPressed;
-  Button(
+  const Button(
       {super.key,
       required this.texto,
       required this.color,
@@ -25,18 +25,18 @@ class _ButtonState extends State<Button> {
       onPressed: () {
         widget.onPressed();
       },
-      child: Text(widget.texto,
-          style: GoogleFonts.kodchasan(
-            color: widget.colorTexto,
-            fontSize: 14,
-          )),
       style: ElevatedButton.styleFrom(
-        primary: widget.color,
+        backgroundColor: widget.color,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(50),
         ),
         minimumSize: Size(Dimensiones.width5, Dimensiones.screenHeight * 0.05),
       ),
+      child: Text(widget.texto,
+          style: GoogleFonts.kodchasan(
+            color: widget.colorTexto,
+            fontSize: 14,
+          )),
     );
   }
 }

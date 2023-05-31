@@ -1,16 +1,12 @@
-import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pegi/data/services/peticionesProyecto.dart';
 import 'package:pegi/domain/Controllers/controladorUsuario.dart';
-import 'package:pegi/ui/pages/Consultar/estudiante/consultarEstudiante.dart';
-import 'package:pegi/ui/pages/Consultar/estudiante/consultarPropuesta.dart';
 import 'package:pegi/ui/pages/Consultar/estudiante/mostrarProyecto.dart';
 import 'package:pegi/ui/utils/Dimensiones.dart';
 import 'package:pegi/ui/widgets/Consulta.dart';
 import 'package:pegi/ui/widgets/Header.dart';
-import 'package:pegi/ui/widgets/Mostrar.dart';
 
 import '../../../../domain/Controllers/controlProyecto.dart';
 import '../../../../domain/models/proyecto.dart';
@@ -130,7 +126,7 @@ class _ConsultarProyectoState extends State<ConsultarProyecto> {
               ),
               content: Text(
                 'Desea Realmente Eliminar a "${propuestaActual.titulo}"',
-                style: TextStyle(color: Colors.white),
+                style: const TextStyle(color: Colors.white),
               ),
               actions: [
                 TextButton(

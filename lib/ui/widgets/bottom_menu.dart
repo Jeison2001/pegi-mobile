@@ -35,7 +35,7 @@ class _BottomMenuState extends State<BottomMenu> {
             showSelectedLabels: false,
             showUnselectedLabels: false,
             unselectedItemColor: Colors.white,
-            selectedItemColor: Color.fromRGBO(113, 77, 217, 1),
+            selectedItemColor: const Color.fromRGBO(113, 77, 217, 1),
             currentIndex: index,
             onTap: (int i) {
               setState(() {

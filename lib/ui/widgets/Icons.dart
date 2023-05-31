@@ -4,7 +4,7 @@ class AppIcon extends StatelessWidget {
   final IconData iconD;
   final Color iconColor;
   final double tam;
-  AppIcon(
+  const AppIcon(
       {Key? key, required this.iconD, required this.iconColor, this.tam = 40})
       : super(key: key);
 

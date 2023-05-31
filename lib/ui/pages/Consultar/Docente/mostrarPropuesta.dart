@@ -281,7 +281,7 @@ class _MostrarPropuestaState extends State<MostrarPropuesta> {
                           children: [
                             Button(
                               texto: "Atras",
-                              color: Color.fromARGB(255, 66, 66, 66),
+                              color: const Color.fromARGB(255, 66, 66, 66),
                               colorTexto: Colors.white,
                               onPressed: () {
                                 setState(() => _activeCurrentStep -= 1);
@@ -332,7 +332,7 @@ class _MostrarPropuestaState extends State<MostrarPropuesta> {
                           children: [
                             Button(
                               texto: "Atras",
-                              color: Color.fromARGB(255, 66, 66, 66),
+                              color: const Color.fromARGB(255, 66, 66, 66),
                               colorTexto: Colors.white,
                               onPressed: () {
                                 setState(() => _activeCurrentStep -= 1);
@@ -383,7 +383,7 @@ class _MostrarPropuestaState extends State<MostrarPropuesta> {
                           children: [
                             Button(
                               texto: "Atras",
-                              color: Color.fromARGB(255, 66, 66, 66),
+                              color: const Color.fromARGB(255, 66, 66, 66),
                               colorTexto: Colors.white,
                               onPressed: () {
                                 setState(() => _activeCurrentStep -= 1);
@@ -431,7 +431,7 @@ class _MostrarPropuestaState extends State<MostrarPropuesta> {
                           children: [
                             Button(
                               texto: "Atras",
-                              color: Color.fromARGB(255, 66, 66, 66),
+                              color: const Color.fromARGB(255, 66, 66, 66),
                               colorTexto: Colors.white,
                               onPressed: () {
                                 setState(() => _activeCurrentStep -= 1);

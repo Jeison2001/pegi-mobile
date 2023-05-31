@@ -93,7 +93,7 @@ class _MostrarTodoState extends State<MostrarTodo> {
                                           style: GoogleFonts.montserrat(
                                               fontWeight: FontWeight.bold,
                                               fontSize: 13.0,
-                                              color: Color.fromARGB(
+                                              color: const Color.fromARGB(
                                                   255, 221, 221, 221)),
                                         ),
                                       ),
@@ -102,8 +102,8 @@ class _MostrarTodoState extends State<MostrarTodo> {
                                         height: Dimensiones.screenHeight * 0.03,
                                         padding:
                                             const EdgeInsets.only(top: 2.0),
-                                        decoration: BoxDecoration(
-                                          borderRadius: const BorderRadius.only(
+                                        decoration: const BoxDecoration(
+                                          borderRadius: BorderRadius.only(
                                               bottomLeft: Radius.circular(80),
                                               bottomRight: Radius.circular(80),
                                               topLeft: Radius.circular(80),
@@ -116,7 +116,7 @@ class _MostrarTodoState extends State<MostrarTodo> {
                                           style: GoogleFonts.montserrat(
                                               fontWeight: FontWeight.bold,
                                               fontSize: 13.0,
-                                              color: Color.fromARGB(
+                                              color: const Color.fromARGB(
                                                   255, 221, 221, 221)),
                                         ),
                                       )

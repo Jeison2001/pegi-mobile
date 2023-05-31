@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -42,7 +41,7 @@ class _RegistrarState extends State<Registrar> {
   }
 
   String? validateEmail(String value) {
-    if (value == null || value.isEmpty) {
+    if (value.isEmpty) {
       emailError = 'El correo no puede estar vacío.';
     } else if (!value.endsWith("@unicesar.edu.co")) {
       emailError = 'El correo debe terminar con "@unicesar.edu.co".';
@@ -53,9 +52,9 @@ class _RegistrarState extends State<Registrar> {
   }
 
   String? validatePassword(String value) {
-    if (value == null || value.isEmpty) {
+    if (value.isEmpty) {
       passwordError = 'La contraseña no puede estar vacía.';
-    } else if (value.length < 1 || value.length >= 50) {
+    } else if (value.isEmpty || value.length >= 50) {
       passwordError = 'La contraseña debe tener entre 1 y 49 caracteres.';
     } else {
       passwordError = null; // Limpiar el mensaje de error
@@ -87,18 +86,18 @@ class _RegistrarState extends State<Registrar> {
             child: Container(
               width: double.maxFinite,
               height: Dimensiones.height70,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                   image: DecorationImage(
-                      image: const AssetImage('assets/images/home.png'),
+                      image: AssetImage('assets/images/home.png'),
                       fit: BoxFit.cover)),
             )),
         Positioned(
             top: Dimensiones.height5,
             left: Dimensiones.width5,
             child: IconButton(
-              icon: AppIcon(
+              icon: const AppIcon(
                   iconD: Icons.arrow_back_ios,
-                  iconColor: const Color.fromARGB(255, 202, 209, 209)),
+                  iconColor: Color.fromARGB(255, 202, 209, 209)),
               onPressed: () {
                 Get.offAllNamed('/principal');
               },
@@ -198,18 +197,18 @@ class _RegistrarState extends State<Registrar> {
                               });
                             }
                           : null,
-                      child: Text("Registrar",
-                          style: GoogleFonts.kodchasan(
-                            color: Colors.white,
-                            fontSize: 13,
-                          )),
                       style: ElevatedButton.styleFrom(
-                        primary: Colors.black,
+                        backgroundColor: Colors.black,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(50),
                         ),
                         minimumSize: const Size(400, 50),
                       ),
+                      child: Text("Registrar",
+                          style: GoogleFonts.kodchasan(
+                            color: Colors.white,
+                            fontSize: 13,
+                          )),
                     ),
                   ),
                 ],

@@ -127,7 +127,7 @@ class InputTextDownload extends StatelessWidget {
                     padding: EdgeInsets.only(
                         bottom: Dimensiones.screenHeight * 0.04),
                     child: Icon(icon,
-                        size: 60.0, color: Color.fromARGB(255, 119, 116, 116)),
+                        size: 60.0, color: const Color.fromARGB(255, 119, 116, 116)),
                   ),
                   Text(texto,
                       style: GoogleFonts.montserrat(

@@ -1,20 +1,11 @@
 import 'dart:developer';
-import 'dart:io';
-import 'dart:typed_data';
 import 'package:get/get.dart';
 import 'package:file_picker/file_picker.dart';
-import 'package:firebase_storage/firebase_storage.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:get/get_connect/http/src/_http/_html/_file_decoder_html.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:pegi/data/services/peticionesIndex.dart';
 import 'package:pegi/domain/Controllers/controlPropuesta.dart';
-import 'package:pegi/ui/pages/registrar/registrar.dart';
 import 'package:pegi/ui/widgets/Input.dart';
 
-import '../../../data/services/peticionesPropuesta.dart';
 import '../../../domain/Controllers/controladorIndex.dart';
 import '../../../domain/Controllers/controladorUsuario.dart';
 import '../../utils/Dimensiones.dart';
@@ -181,9 +172,9 @@ class _RegistrarPropuestaState extends State<RegistrarPropuesta> {
     controlLineaInvestigacion.dispose();
 
     controlSublineaInvestigacion.dispose();
-    controlAreaTematica..dispose();
+    controlAreaTematica.dispose();
 
-    controlGrupoInvestigacion..dispose();
+    controlGrupoInvestigacion.dispose();
     controlPlanteamiento.dispose();
     controlJustificacion.dispose();
     controlGeneral.dispose();
@@ -194,7 +185,7 @@ class _RegistrarPropuestaState extends State<RegistrarPropuesta> {
   }
 
   String? validateEmail(String value) {
-    if (value == null || value.isEmpty) {
+    if (value.isEmpty) {
       return 'El correo no puede estar vacío.';
     }
     if (!value.endsWith("@unicesar.edu.co")) {
@@ -204,30 +195,30 @@ class _RegistrarPropuestaState extends State<RegistrarPropuesta> {
   }
 
   String? validateString0a49(String value) {
-    if (value == null || value.isEmpty) {
+    if (value.isEmpty) {
       return 'El campo no puede estar vacío.';
     }
-    if (value.length < 1 || value.length >= 50) {
+    if (value.isEmpty || value.length >= 50) {
       return 'El campo debe tener entre 1 y 49 caracteres.';
     }
     return null; // La validación es exitosa, no hay mensaje de error
   }
 
   String? validateString0a50(String value) {
-    if (value == null || value.isEmpty) {
+    if (value.isEmpty) {
       return 'El campo no puede estar vacío.';
     }
-    if (value.length < 1 || value.length > 50) {
+    if (value.isEmpty || value.length > 50) {
       return 'El campo debe tener entre 1 y 50 caracteres.';
     }
     return null; // La validación es exitosa, no hay mensaje de error
   }
 
   String? validateString0a499(String value) {
-    if (value == null || value.isEmpty) {
+    if (value.isEmpty) {
       return 'El campo no puede estar vacío.';
     }
-    if (value.length < 1 || value.length >= 500) {
+    if (value.isEmpty || value.length >= 500) {
       return 'El campo debe tener entre 1 y 499 caracteres.';
     }
     return null; // La validación es exitosa, no hay mensaje de error
@@ -586,7 +577,7 @@ class _RegistrarPropuestaState extends State<RegistrarPropuesta> {
                       children: [
                         Button(
                           texto: "Atras",
-                          color: Color.fromARGB(255, 66, 66, 66),
+                          color: const Color.fromARGB(255, 66, 66, 66),
                           colorTexto: Colors.white,
                           onPressed: () {
                             setState(() => _activeCurrentStep -= 1);
@@ -635,7 +626,7 @@ class _RegistrarPropuestaState extends State<RegistrarPropuesta> {
                       children: [
                         Button(
                           texto: "Atras",
-                          color: Color.fromARGB(255, 66, 66, 66),
+                          color: const Color.fromARGB(255, 66, 66, 66),
                           colorTexto: Colors.white,
                           onPressed: () {
                             setState(() => _activeCurrentStep -= 1);
@@ -684,7 +675,7 @@ class _RegistrarPropuestaState extends State<RegistrarPropuesta> {
                       children: [
                         Button(
                           texto: "Atras",
-                          color: Color.fromARGB(255, 66, 66, 66),
+                          color: const Color.fromARGB(255, 66, 66, 66),
                           colorTexto: Colors.white,
                           onPressed: () {
                             setState(() => _activeCurrentStep -= 1);
@@ -747,7 +738,7 @@ class _RegistrarPropuestaState extends State<RegistrarPropuesta> {
                       children: [
                         Button(
                           texto: "Atras",
-                          color: Color.fromARGB(255, 66, 66, 66),
+                          color: const Color.fromARGB(255, 66, 66, 66),
                           colorTexto: Colors.white,
                           onPressed: () {
                             setState(() => _activeCurrentStep -= 1);
