@@ -111,7 +111,12 @@ class _MostrarTodoState extends State<MostrarTodo> {
                                           color: Colors.transparent,
                                         ),
                                         child: Text(
-                                          "Nota: ${widget.calificacion}",
+                                          widget.tipo
+                                                      .toString()
+                                                      .toLowerCase() ==
+                                                  'calificado'
+                                              ? "Nota: ${widget.calificacion}"
+                                              : "",
                                           textAlign: TextAlign.center,
                                           style: GoogleFonts.montserrat(
                                               fontWeight: FontWeight.bold,

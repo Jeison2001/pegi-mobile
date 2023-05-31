@@ -8,7 +8,6 @@ import 'package:pegi/ui/widgets/Input.dart';
 import 'package:pegi/ui/widgets/Mostrar.dart';
 import 'package:pegi/ui/widgets/inputText.dart';
 
-
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:http/http.dart' as http;
@@ -51,6 +50,7 @@ class _MostrarProyectoState extends State<MostrarProyecto> {
                           : const Color.fromRGBO(18, 180, 122, 1),
                   estado: true,
                   tipo: widget.proyecto.estado,
+                  calificacion: widget.proyecto.calificacion,
                   onPressed: () {},
                   color: Colors.black,
                   fijarIcon: false,
@@ -104,8 +104,10 @@ class _MostrarProyectoState extends State<MostrarProyecto> {
                         flutterLocalNotificationsPlugin =
                         FlutterLocalNotificationsPlugin();
                     var initializationSettingsAndroid =
-                        const AndroidInitializationSettings('@mipmap/ic_launcher');
-                    var initializationSettingsIOS = const IOSInitializationSettings();
+                        const AndroidInitializationSettings(
+                            '@mipmap/ic_launcher');
+                    var initializationSettingsIOS =
+                        const IOSInitializationSettings();
                     var initializationSettings = InitializationSettings(
                         android: initializationSettingsAndroid,
                         iOS: initializationSettingsIOS);
@@ -119,7 +121,8 @@ class _MostrarProyectoState extends State<MostrarProyecto> {
                             importance: Importance.max,
                             priority: Priority.high,
                             showWhen: false);
-                    var iOSPlatformChannelSpecifics = const IOSNotificationDetails();
+                    var iOSPlatformChannelSpecifics =
+                        const IOSNotificationDetails();
                     var platformChannelSpecifics = NotificationDetails(
                         android: androidPlatformChannelSpecifics,
                         iOS: iOSPlatformChannelSpecifics);
