@@ -7,8 +7,6 @@ import 'package:pegi/ui/widgets/Button.dart';
 import 'package:pegi/ui/widgets/Header.dart';
 import 'package:pegi/ui/widgets/Input.dart';
 import 'package:pegi/ui/widgets/Mostrar.dart';
-
-import '../../widgets/inputText.dart';
 import '../home.dart';
 
 class CalificarPropuesta extends StatefulWidget {

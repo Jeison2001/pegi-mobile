@@ -9,13 +9,12 @@ class Consultar extends StatefulWidget {
   final IconData icon;
 
   const Consultar({
-    super.key,
+    Key? key, // Corrección aquí
     required this.icon,
     required this.texto,
     required this.colorBoton,
     required this.onPressed,
-  });
-
+  }) : super(key: key);
   @override
   State<Consultar> createState() => _ConsultarState();
 }
@@ -68,14 +67,16 @@ class Mostrar extends StatelessWidget {
   final Color colorBoton;
   final VoidCallback onPressed;
   final VoidCallback onLongPress;
-  const Mostrar(
-      {required this.texto,
-      required this.tipo,
-      required this.colorTipo,
-      required this.colorBoton,
-      required this.onPressed,
-      required this.onLongPress,
-      super.key});
+
+  const Mostrar({
+    required this.texto,
+    required this.tipo,
+    required this.colorTipo,
+    required this.colorBoton,
+    required this.onPressed,
+    required this.onLongPress,
+    Key? key, // Corrección aquí
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

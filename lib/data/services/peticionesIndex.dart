@@ -1,26 +1,20 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart' as fs;
 import 'package:firebase_storage/firebase_storage.dart';
 
-
 class PeticionesIndex {
   static final fs.FirebaseStorage storage = fs.FirebaseStorage.instance;
   static final FirebaseFirestore _db = FirebaseFirestore.instance;
+  // Agrega este campo final para guardar la instancia de FirebaseFirestore
+  final FirebaseFirestore firestore;
   UploadTask? uploadTask;
+  // Agrega este parámetro al constructor y asignalo al campo
   PeticionesIndex({
     this.uploadTask,
+    required this.firestore,
   });
-  // static Future<String> consultarProyectos() async {
-  //   await _db.collection('Proyectos').get().then((QuerySnapshot querySnapshot) {
-  //     for (var doc in querySnapshot.docs) {
-  //       log(doc.data().toString());
-  //     }
-  //   });
-  //   return "1";
-  // }
 
   static Future<String> consultarIndex() async {
     var response;
