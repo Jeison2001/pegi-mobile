@@ -4,13 +4,14 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:pegi/domain/models/usuario.dart';
 
 class PeticionesUsuario {
-  static final FirebaseFirestore _db = FirebaseFirestore.instance;
-  static final FirebaseAuth authf = FirebaseAuth.instance;
-
-  static Future<UserCredential> iniciarSesion(
-      String user, String contrasena) async {
+  final FirebaseFirestore _db;
+  final FirebaseAuth _auth;
+  PeticionesUsuario({FirebaseFirestore? db, FirebaseAuth? auth})
+      : _db = db ?? FirebaseFirestore.instance,
+        _auth = auth ?? FirebaseAuth.instance;
+  Future<UserCredential> iniciarSesion(String user, String contrasena) async {
     try {
-      return await authf.signInWithEmailAndPassword(
+      return await _auth.signInWithEmailAndPassword(
           email: user, password: contrasena);
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
@@ -22,10 +23,9 @@ class PeticionesUsuario {
     return Future.error('Error');
   }
 
-  static Future<UserCredential> registrar(
-      String user, String contrasena) async {
+  Future<UserCredential> registrar(String user, String contrasena) async {
     try {
-      return await authf.createUserWithEmailAndPassword(
+      return await _auth.createUserWithEmailAndPassword(
           email: user, password: contrasena);
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
@@ -37,7 +37,7 @@ class PeticionesUsuario {
     return Future.error('Error');
   }
 
-  static Future<String> obtenerRol(user) async {
+  Future<String> obtenerRol(user) async {
     var response = "";
 
     await _db.collection("Usuarios").get().then((respuesta) {
@@ -51,7 +51,7 @@ class PeticionesUsuario {
     return response;
   }
 
-  static Future<List<UsuarioFirebase>> obtenerDocentes() async {
+  Future<List<UsuarioFirebase>> obtenerDocentes() async {
     List<UsuarioFirebase> docentes = [];
 
     await _db.collection("Usuarios").get().then((respuesta) {
@@ -65,7 +65,7 @@ class PeticionesUsuario {
     return docentes;
   }
 
-  static Future<List<String>> obtenerNombresDocentes() async {
+  Future<List<String>> obtenerNombresDocentes() async {
     List<String> docentes = [];
 
     await _db.collection("Usuarios").get().then((respuesta) {
@@ -79,7 +79,7 @@ class PeticionesUsuario {
     return docentes;
   }
 
-  static Future<bool> verificacionUser(user) async {
+  Future<bool> verificacionUser(user) async {
     bool correoCheck = false;
     await _db.collection("Usuarios").get().then((respuesta) {
       for (var doc in respuesta.docs) {
@@ -91,20 +91,3 @@ class PeticionesUsuario {
     return correoCheck;
   }
 }
-
- 
-
-  // static Future<List<Usuario>> validarUsuario(
-  //     String usuario, String contrasena) async {
-  //   var url = Uri.parse("");
-  //   final respuesta =
-  //       await http.post(url, body: {'Usuario': usuario, 'pass': contrasena});
-  //   return compute(convertir, respuesta.body);
-  // }
-
-  // static List<Usuario> convertir(String respuestaBody) {
-  //   final pasar = json.decode(respuestaBody).cast<Map<String, dynamic>>();
-
-  //   return pasar.map<Usuario>((json) => Usuario.desdeJson(json)).toList();
-  // }
-

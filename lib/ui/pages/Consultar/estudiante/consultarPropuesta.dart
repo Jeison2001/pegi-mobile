@@ -25,7 +25,7 @@ class _ConsultarPropuestasState extends State<ConsultarPropuestas> {
   ControlUsuario controlu = Get.find();
 
   late Future<List<Propuesta>> listaPropuesta =
-      PeticionesPropuesta.consultarPropuestas(controlu.emailf);
+      peticionesPropuesta.consultarPropuestas(controlu.emailf);
   TextEditingController controlador = TextEditingController();
   @override
   Widget build(BuildContext context) {

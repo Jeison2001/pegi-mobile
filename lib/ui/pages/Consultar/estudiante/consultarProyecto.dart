@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pegi/data/services/peticionesProyecto.dart';
@@ -20,13 +19,13 @@ class ConsultarProyecto extends StatefulWidget {
 }
 
 class _ConsultarProyectoState extends State<ConsultarProyecto> {
-  PeticionesProyecto peticionesPropuesta = PeticionesProyecto();
+  PeticionesProyecto peticionesProyecto = PeticionesProyecto();
   ControlProyecto controlp = Get.find();
 
   ControlUsuario controlu = Get.find();
 
   late Future<List<Proyecto>> listaProyecto =
-      PeticionesProyecto.consultarProyectos(controlu.emailf);
+      peticionesProyecto.consultarProyectos(controlu.emailf);
   TextEditingController controlador = TextEditingController();
   @override
   Widget build(BuildContext context) {

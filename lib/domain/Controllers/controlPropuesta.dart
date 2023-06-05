@@ -9,28 +9,28 @@ class ControlPropuesta extends GetxController {
   final Rxn<List<Propuesta>> _propuestaFirestore = Rxn<List<Propuesta>>();
   final Rxn<List<Propuesta>> _propuestaIdDocente = Rxn<List<Propuesta>>();
   final Rxn<List<Propuesta>> _todasPropuesta = Rxn<List<Propuesta>>();
-
+  final PeticionesPropuesta peticionesPropuesta = PeticionesPropuesta();
   Future<void> consultarPropuestas(email) async {
     _propuestaFirestore.value =
-        await PeticionesPropuesta.consultarPropuestas(email);
+        await peticionesPropuesta.consultarPropuestas(email);
   }
 
   Future<void> consultarTodasPropuestas() async {
     _todasPropuesta.value =
-        await PeticionesPropuesta.consultarTodasPropuestas();
+        await peticionesPropuesta.consultarTodasPropuestas();
   }
 
   Future<void> modificarPropuesta(propuesta) async {
-    await PeticionesPropuesta.modificarPropuesta(propuesta);
+    await peticionesPropuesta.modificarPropuesta(propuesta);
   }
 
   Future<void> eliminarPropuesta(propuesta) async {
-    await PeticionesPropuesta.eliminarPropuesta(propuesta);
+    await peticionesPropuesta.eliminarPropuesta(propuesta);
   }
 
   Future<void> consultarPropuestasDocente(id) async {
     _propuestaIdDocente.value =
-        await PeticionesPropuesta.consultarPropuestaDocente(id);
+        await peticionesPropuesta.consultarPropuestaDocente(id);
   }
 
   List<Propuesta>? get getPropuestaEstudiante => _propuestaFirestore.value;
@@ -42,7 +42,7 @@ class ControlPropuesta extends GetxController {
   Future<void> registrarPropuesta(Map<String, dynamic> propuesta, String? file,
       String? pickedFileextencion) async {
     try {
-      await PeticionesPropuesta.crearPropuesta(
+      await peticionesPropuesta.crearPropuesta(
           propuesta, file, pickedFileextencion);
     } on FirebaseAuthException catch (e) {
       log(e.toString());

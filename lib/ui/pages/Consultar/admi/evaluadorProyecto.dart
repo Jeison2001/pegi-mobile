@@ -20,8 +20,9 @@ class EvaluadorProyecto extends StatefulWidget {
 class _EvaluadorProyectoState extends State<EvaluadorProyecto> {
   TextEditingController controlador = TextEditingController();
   ControlProyecto controlp = Get.find();
+  final PeticionesProyecto peticionesProyecto = PeticionesProyecto();
   late Future<List<Proyecto>> listaProyecto =
-      PeticionesProyecto.consultarTodosProyectos();
+      peticionesProyecto.consultarTodosProyectos();
   ControlUsuario controlu = Get.find();
   @override
   Widget build(BuildContext context) {

@@ -10,23 +10,24 @@ class ControlProyecto extends GetxController {
   final Rxn<List<Proyecto>> _proyectoFirestore = Rxn<List<Proyecto>>();
   final Rxn<List<Proyecto>> _proyectoDocenteFirestore = Rxn<List<Proyecto>>();
   final Rxn<List<Proyecto>> _todosProyectos = Rxn<List<Proyecto>>();
+  final PeticionesProyecto peticionesProyecto = PeticionesProyecto();
 
   Future<void> consultarProyectos(email) async {
     _proyectoFirestore.value =
-        await PeticionesProyecto.consultarProyectos(email);
+        await peticionesProyecto.consultarProyectos(email);
   }
 
   Future<void> consultarTodosProyectos() async {
-    _todosProyectos.value = await PeticionesProyecto.consultarTodosProyectos();
+    _todosProyectos.value = await peticionesProyecto.consultarTodosProyectos();
   }
 
   Future<void> consultarProyectosDocentes(id) async {
     _proyectoDocenteFirestore.value =
-        await PeticionesProyecto.consultarProyectoDocente(id);
+        await peticionesProyecto.consultarProyectoDocente(id);
   }
 
   Future<void> eliminarProyecto(proyecto) async {
-    await PeticionesProyecto.eliminarProyecto(proyecto);
+    await peticionesProyecto.eliminarProyecto(proyecto);
   }
 
   List<Proyecto>? get getproyectosGral => _proyectoFirestore.value;
@@ -34,13 +35,13 @@ class ControlProyecto extends GetxController {
   List<Proyecto>? get getTodosproyectos => _todosProyectos.value;
 
   Future<void> modificarProyecto(proyecto) async {
-    await PeticionesProyecto.modificarProyecto(proyecto);
+    await peticionesProyecto.modificarProyecto(proyecto);
   }
 
   Future<void> registrarProyecto(Map<String, dynamic> proyecto,
       String? pickedFilePath, String? pickedFileextencion) async {
     try {
-      await PeticionesProyecto.crearProyecto(
+      await peticionesProyecto.crearProyecto(
           proyecto, pickedFilePath, pickedFileextencion);
     } on FirebaseAuthException catch (e) {
       log(e.toString());

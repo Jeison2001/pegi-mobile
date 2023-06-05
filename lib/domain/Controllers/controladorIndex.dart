@@ -5,11 +5,15 @@ import 'package:pegi/data/services/peticionesIndex.dart';
 import 'package:get/get.dart';
 
 class ControlIndex extends GetxController {
-  Future consultarIndex() async {
+  final PeticionesIndex _peticionesIndex;
+  ControlIndex({PeticionesIndex? peticionesIndex})
+      : _peticionesIndex = peticionesIndex ?? PeticionesIndex();
+  Future<String> consultarIndex() async {
     try {
-      return await PeticionesIndex.consultarIndex();
+      return await _peticionesIndex.consultarIndex();
     } on FirebaseAuthException catch (e) {
-      log(e.toString());
+      log(e.toString()); // aquí muestras el error en el log
+      return e.toString(); // aquí devuelves un valor por defecto
     }
   }
 }

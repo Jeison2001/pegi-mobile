@@ -22,8 +22,10 @@ class ConsultarPropuestaDocente extends StatefulWidget {
 class _ConsultarPropuestaDocenteState extends State<ConsultarPropuestaDocente> {
   TextEditingController controlador = TextEditingController();
   ControlPropuesta controlp = Get.find();
+  final PeticionesPropuesta peticionesPropuesta = PeticionesPropuesta();
+
   late Future<List<Propuesta>> listaPropuesta =
-      PeticionesPropuesta.consultarPropuestaDocente(controlu.emailf);
+      peticionesPropuesta.consultarPropuestaDocente(controlu.emailf);
   ControlUsuario controlu = Get.find();
   @override
   Widget build(BuildContext context) {

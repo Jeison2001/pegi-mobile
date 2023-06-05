@@ -12,7 +12,7 @@ class ControlUsuario extends GetxController {
   final Rxn<List<UsuarioFirebase>> _listaDocentes =
       Rxn<List<UsuarioFirebase>>();
   final Rxn<List<String>> _nombresDocentes = Rxn<List<String>>();
-
+  final PeticionesUsuario peticionesUsuario = PeticionesUsuario();
   static final Rx<dynamic> _mensajes = "".obs;
 
   String get emailf => _usuarior.value;
@@ -24,8 +24,8 @@ class ControlUsuario extends GetxController {
   Future<void> enviarDatos(String user, String contrasena) async {
     try {
       UserCredential usuario =
-          await PeticionesUsuario.iniciarSesion(user, contrasena);
-      String rolUser = await PeticionesUsuario.obtenerRol(user);
+          await peticionesUsuario.iniciarSesion(user, contrasena);
+      String rolUser = await peticionesUsuario.obtenerRol(user);
       _rol.value = rolUser;
       _uid.value = usuario.user!.uid;
       _usuarior.value = usuario.user!.email;
@@ -41,10 +41,10 @@ class ControlUsuario extends GetxController {
 
   Future<void> RegistrarDatos(String user, String contrasena) async {
     try {
-      bool checkUser = await PeticionesUsuario.verificacionUser(user);
+      bool checkUser = await peticionesUsuario.verificacionUser(user);
       if (checkUser) {
         UserCredential usuario =
-            await PeticionesUsuario.registrar(user, contrasena);
+            await peticionesUsuario.registrar(user, contrasena);
         _uid.value = usuario.user!.uid;
         _usuarior.value = usuario.user!.email;
       }
@@ -58,10 +58,10 @@ class ControlUsuario extends GetxController {
   }
 
   Future<void> consultarListaDocentes() async {
-    _listaDocentes.value = await PeticionesUsuario.obtenerDocentes();
+    _listaDocentes.value = await peticionesUsuario.obtenerDocentes();
   }
 
   Future<void> consultarNombresDocentes() async {
-    _nombresDocentes.value = await PeticionesUsuario.obtenerNombresDocentes();
+    _nombresDocentes.value = await peticionesUsuario.obtenerNombresDocentes();
   }
 }
