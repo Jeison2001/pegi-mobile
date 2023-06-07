@@ -1,5 +1,4 @@
 import 'dart:developer';
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:pegi/data/services/peticionesUsuario.dart';
 import 'package:get/get.dart';
@@ -12,8 +11,9 @@ class ControlUsuario extends GetxController {
   final Rxn<List<UsuarioFirebase>> _listaDocentes =
       Rxn<List<UsuarioFirebase>>();
   final Rxn<List<String>> _nombresDocentes = Rxn<List<String>>();
-  final PeticionesUsuario peticionesUsuario = PeticionesUsuario();
-  static final Rx<dynamic> _mensajes = "".obs;
+  final PeticionesUsuario _peticionesUsuario;
+  ControlUsuario({PeticionesUsuario? peticionesUsuario})
+      : _peticionesUsuario = peticionesUsuario ?? PeticionesUsuario();
 
   String get emailf => _usuarior.value;
   String get uid => _uid.value;
@@ -24,29 +24,26 @@ class ControlUsuario extends GetxController {
   Future<void> enviarDatos(String user, String contrasena) async {
     try {
       UserCredential usuario =
-          await peticionesUsuario.iniciarSesion(user, contrasena);
-      String rolUser = await peticionesUsuario.obtenerRol(user);
+          await _peticionesUsuario.iniciarSesion(user, contrasena);
+      String rolUser = await _peticionesUsuario.obtenerRol(user);
       _rol.value = rolUser;
       _uid.value = usuario.user!.uid;
-      _usuarior.value = usuario.user!.email;
+      _usuarior.value = usuario.user!.email.toString();
     } on FirebaseAuthException catch (e) {
       log(e.toString());
-      // if (e.code == 'user-not-found') {
-      //   return Future.error('Usuario no Existe');
-      // } else if (e.code == 'wrong-password') {
-      //   return Future.error('Contraseña Incorrecta');
-      // }
     }
   }
 
   Future<void> RegistrarDatos(String user, String contrasena) async {
     try {
-      bool checkUser = await peticionesUsuario.verificacionUser(user);
+      bool checkUser = await _peticionesUsuario.verificacionUser(user);
       if (checkUser) {
         UserCredential usuario =
-            await peticionesUsuario.registrar(user, contrasena);
+            await _peticionesUsuario.registrar(user, contrasena);
         _uid.value = usuario.user!.uid;
-        _usuarior.value = usuario.user!.email;
+        _usuarior
+          ..value = usuario.user!.email
+          ..value ??= ''; // Asigna una cadena vacía solo si el valor es null
       }
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
@@ -58,10 +55,10 @@ class ControlUsuario extends GetxController {
   }
 
   Future<void> consultarListaDocentes() async {
-    _listaDocentes.value = await peticionesUsuario.obtenerDocentes();
+    _listaDocentes.value = await _peticionesUsuario.obtenerDocentes();
   }
 
   Future<void> consultarNombresDocentes() async {
-    _nombresDocentes.value = await peticionesUsuario.obtenerNombresDocentes();
+    _nombresDocentes.value = await _peticionesUsuario.obtenerNombresDocentes();
   }
 }

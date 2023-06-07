@@ -202,20 +202,4 @@ class PeticionesProyecto {
     });
     return contador;
   }
-
-  Future conProyecEst(email, String estado) async {
-    var contador = 0;
-    await _db.collection("Proyectos").get().then((respuesta) {
-      for (var doc in respuesta.docs) {
-        if (doc.data()['idEstudiante'] == email) {
-          if (doc.data()['estado'].toLowerCase() == estado.toLowerCase()) {
-            contador += 1;
-          }
-        }
-      }
-    });
-    return contador;
-  }
-
-  Future<void> actualizarIndex(Map<String, dynamic> propuesta) async {}
 }

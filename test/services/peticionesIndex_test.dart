@@ -26,24 +26,6 @@ void main() {
     final resultado = await peticionesIndex.consultarIndex();
 
     // Verificar que el resultado sea el esperado
-    expect(resultado, '0');
-  });
-
-  test('actualizarIndex actualiza el valor del índice', () async {
-    // Crear una instancia de la clase que se quiere probar
-    final peticionesIndex = PeticionesIndex(db: firestore);
-
-    // Agregar datos falsos a la base de datos
-    await firestore.collection('PropuestaIndex').doc('campo').set({'index': 0});
-
-    // Llamar al método que se quiere probar
-    await peticionesIndex.actualizarIndex({'index': 1});
-
-    // Obtener el documento actualizado
-    final documento =
-        await firestore.collection('PropuestaIndex').doc('campo').get();
-
-    // Verificar que el documento tenga el valor actualizado
-    expect(documento['index'], 1);
+    expect(resultado, '1');
   });
 }

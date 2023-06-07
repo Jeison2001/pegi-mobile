@@ -29,10 +29,12 @@ class Input extends StatefulWidget {
 }
 
 class _InputState extends State<Input> {
-  bool showError = false;
-
   @override
   Widget build(BuildContext context) {
+    final String? validationError =
+        widget.validationFunction?.call(widget.controlador.text);
+    final bool showError = validationError != null;
+
     return Container(
       padding: widget.padding,
       margin: widget.margin,
@@ -45,9 +47,7 @@ class _InputState extends State<Input> {
             autofocus: false,
             controller: widget.controlador,
             onChanged: (value) {
-              setState(() {
-                showError = widget.validationFunction?.call(value) != null;
-              });
+              setState(() {});
             },
             decoration: InputDecoration(
               contentPadding: const EdgeInsets.only(left: 30),
@@ -67,7 +67,7 @@ class _InputState extends State<Input> {
           ),
           if (showError && widget.validationFunction != null)
             Text(
-              widget.validationFunction!(widget.controlador.text) ?? '',
+              validationError!,
               style: const TextStyle(color: Colors.red),
             ),
         ],

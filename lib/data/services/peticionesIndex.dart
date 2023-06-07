@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 
@@ -10,30 +8,20 @@ class PeticionesIndex {
   PeticionesIndex({FirebaseFirestore? db, this.uploadTask})
       : _db = db ?? FirebaseFirestore.instance;
 
-  Future consultarIndex() async {
-    var response;
-    int indice = 0;
-    await _db.collection("PropuestaIndex").get().then((respuesta) {
-      for (var doc in respuesta.docs) {
-        response = doc.data().values;
-        for (var doc in respuesta.docs) {
-          indice = (doc.data()['index']);
-          response = (doc.data()['index']);
-        }
-      }
-      indice = (indice + 1);
-    });
-    await actualizarIndex({'index': indice});
-    return response?.toString() ?? '';
-  }
-
-  Future<void> actualizarIndex(Map<String, dynamic> propuesta) async {
-    await _db
-        .collection('PropuestaIndex')
-        .doc('campo')
-        .update(propuesta)
-        .catchError((e) {
-      log(e);
+  Future<String> consultarIndex() async {
+    // Usa una transacción para leer y escribir el índice
+    return await _db.runTransaction<String>((transaction) async {
+      // Obtiene el documento que contiene el índice
+      final doc =
+          await transaction.get(_db.collection('PropuestaIndex').doc('campo'));
+      // Lee el valor del índice
+      final indice = doc['index'] as int;
+      // Incrementa el índice en uno
+      final nuevoIndice = indice + 1;
+      // Actualiza el índice en el documento
+      transaction.update(doc.reference, {'index': nuevoIndice});
+      // Devuelve el valor del índice como String
+      return nuevoIndice.toString();
     });
   }
 }

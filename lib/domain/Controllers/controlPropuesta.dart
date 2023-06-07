@@ -9,28 +9,41 @@ class ControlPropuesta extends GetxController {
   final Rxn<List<Propuesta>> _propuestaFirestore = Rxn<List<Propuesta>>();
   final Rxn<List<Propuesta>> _propuestaIdDocente = Rxn<List<Propuesta>>();
   final Rxn<List<Propuesta>> _todasPropuesta = Rxn<List<Propuesta>>();
-  final PeticionesPropuesta peticionesPropuesta = PeticionesPropuesta();
+  final PeticionesPropuesta _peticionesPropuesta;
+  ControlPropuesta({PeticionesPropuesta? peticionesPropuesta})
+      : _peticionesPropuesta = peticionesPropuesta ?? PeticionesPropuesta();
+
+  Future<void> registrarPropuesta(Map<String, dynamic> propuesta, String? file,
+      String? pickedFileextencion) async {
+    try {
+      await _peticionesPropuesta.crearPropuesta(
+          propuesta, file, pickedFileextencion);
+    } on FirebaseAuthException catch (e) {
+      log(e.toString());
+    }
+  }
+
   Future<void> consultarPropuestas(email) async {
     _propuestaFirestore.value =
-        await peticionesPropuesta.consultarPropuestas(email);
+        await _peticionesPropuesta.consultarPropuestas(email);
   }
 
   Future<void> consultarTodasPropuestas() async {
     _todasPropuesta.value =
-        await peticionesPropuesta.consultarTodasPropuestas();
+        await _peticionesPropuesta.consultarTodasPropuestas();
   }
 
   Future<void> modificarPropuesta(propuesta) async {
-    await peticionesPropuesta.modificarPropuesta(propuesta);
+    await _peticionesPropuesta.modificarPropuesta(propuesta);
   }
 
   Future<void> eliminarPropuesta(propuesta) async {
-    await peticionesPropuesta.eliminarPropuesta(propuesta);
+    await _peticionesPropuesta.eliminarPropuesta(propuesta);
   }
 
   Future<void> consultarPropuestasDocente(id) async {
     _propuestaIdDocente.value =
-        await peticionesPropuesta.consultarPropuestaDocente(id);
+        await _peticionesPropuesta.consultarPropuestaDocente(id);
   }
 
   List<Propuesta>? get getPropuestaEstudiante => _propuestaFirestore.value;
@@ -38,19 +51,4 @@ class ControlPropuesta extends GetxController {
   List<Propuesta>? get getPropuestaDocente => _propuestaIdDocente.value;
 
   List<Propuesta>? get getTodasPropuesta => _todasPropuesta.value;
-
-  Future<void> registrarPropuesta(Map<String, dynamic> propuesta, String? file,
-      String? pickedFileextencion) async {
-    try {
-      await peticionesPropuesta.crearPropuesta(
-          propuesta, file, pickedFileextencion);
-    } on FirebaseAuthException catch (e) {
-      log(e.toString());
-      // if (e.code == 'user-not-found') {
-      //   return Future.error('Usuario no Existe');
-      // } else if (e.code == 'wrong-password') {
-      //   return Future.error('Contraseña Incorrecta');
-      // }
-    }
-  }
 }

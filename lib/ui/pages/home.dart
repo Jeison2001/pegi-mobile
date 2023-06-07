@@ -3,8 +3,9 @@ import '../../domain/models/routes.dart';
 import '../widgets/bottom_menu.dart';
 
 class HomePage extends StatefulWidget {
-  var rol;
-  HomePage({required this.rol, super.key});
+  final String rol; // Asegúrate de que el tipo de dato del rol sea String
+  HomePage({required this.rol, Key? key})
+      : super(key: key); // Añade el parámetro key
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -49,10 +50,11 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        bottomNavigationBar: widget.rol == "estudiante" ? menuEstudiante : menu,
-        body: Routes(
-          index: index,
-          rutaElejida: widget.rol,
-        ));
+      bottomNavigationBar: widget.rol == "estudiante" ? menuEstudiante : menu,
+      body: Routes(
+        index: index,
+        rutaElejida: widget.rol,
+      ),
+    );
   }
 }
