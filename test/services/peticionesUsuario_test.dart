@@ -6,7 +6,7 @@ import 'package:pegi/domain/models/usuario.dart';
 import 'package:pegi/data/services/peticionesUsuario.dart';
 
 void main() {
-  group('PeticionesUsuario', () {
+  group('Ingresar', () {
     late PeticionesUsuario peticionesUsuario;
     late FakeFirebaseFirestore firestore;
     late MockFirebaseAuth auth;
@@ -17,9 +17,7 @@ void main() {
       peticionesUsuario = PeticionesUsuario(db: firestore, auth: auth);
     });
 
-    test(
-        'iniciarSesion devuelve UserCredential si el usuario y la contraseña son correctos',
-        () async {
+    test('Navigate to home page when login with valid data', () async {
       // Arrange
       final user = 'test@test.com';
       final password = '123456';

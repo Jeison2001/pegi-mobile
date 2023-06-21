@@ -34,7 +34,8 @@ void main() {
     expect(documento['Campo'], 'campo');
   });
 
-  test('consultar Todos los proyectos devuelve una lista de proyectos',
+  test(
+      'consultar Todos los proyectos devuelve una lista de proyectos agregados en registrar proyecto',
       () async {
     // Crear una instancia de la clase que se quiere probar
     final peticionesProyecto =

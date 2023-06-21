@@ -178,29 +178,4 @@ class MockPeticionesProyecto extends _i1.Mock
         ),
         returnValue: _i4.Future<dynamic>.value(),
       ) as _i4.Future<dynamic>);
-  @override
-  _i4.Future<dynamic> conProyecEst(
-    dynamic email,
-    String? estado,
-  ) =>
-      (super.noSuchMethod(
-        Invocation.method(
-          #conProyecEst,
-          [
-            email,
-            estado,
-          ],
-        ),
-        returnValue: _i4.Future<dynamic>.value(),
-      ) as _i4.Future<dynamic>);
-  @override
-  _i4.Future<void> actualizarIndex(Map<String, dynamic>? propuesta) =>
-      (super.noSuchMethod(
-        Invocation.method(
-          #actualizarIndex,
-          [propuesta],
-        ),
-        returnValue: _i4.Future<void>.value(),
-        returnValueForMissingStub: _i4.Future<void>.value(),
-      ) as _i4.Future<void>);
 }

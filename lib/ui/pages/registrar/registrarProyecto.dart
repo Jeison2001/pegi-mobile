@@ -180,44 +180,36 @@ class _RegistrarProyectoState extends State<RegistrarProyecto> {
                                   .registrarProyecto(proyecto, pickedFilePath,
                                       pickedFileExtension)
                                   .then((value) => {
-                                        Get.showSnackbar(
-                                          GetSnackBar(
-                                            titleText: Text(
-                                                'Datos registrados correctamente'),
-                                            messageText: Text(
-                                                'Datos registrados correctamente'),
-                                            duration: Duration(seconds: 5),
-                                            backgroundColor: Colors.greenAccent,
-                                          ),
-                                        ),
+                                        Get.showSnackbar(const GetSnackBar(
+                                          title: 'Regristrar Proyecto',
+                                          message:
+                                              'Datos registrados Correctamente',
+                                          icon: Icon(Icons.gpp_good_outlined),
+                                          duration: Duration(seconds: 5),
+                                          backgroundColor: Colors.greenAccent,
+                                        )),
                                         Get.offAll(
                                             () => HomePage(rol: "estudiante")),
                                       })
                                   .catchError((e) {
-                                Get.showSnackbar(
-                                  GetSnackBar(
-                                    titleText:
-                                        Text('Error al registrar proyecto'),
-                                    messageText:
-                                        Text('Error al registrar proyecto'),
-                                    duration: Duration(seconds: 5),
-                                    backgroundColor: Colors.red,
-                                  ),
-                                );
+                                Get.showSnackbar(const GetSnackBar(
+                                  title: 'Regristrar Proyecto',
+                                  message: 'Error al registrar proyecto',
+                                  icon: Icon(Icons.warning),
+                                  duration: Duration(seconds: 5),
+                                  backgroundColor: Colors.red,
+                                ));
                               });
                             }
                           : () async {
-                              Get.showSnackbar(
-                                GetSnackBar(
-                                  titleText:
-                                      Text('Por favor verifique los campos'),
-                                  messageText:
-                                      Text('Por favor verifique los campos'),
-                                  duration: Duration(seconds: 5),
-                                  backgroundColor:
-                                      Color.fromARGB(255, 202, 118, 92),
-                                ),
-                              );
+                              Get.showSnackbar(const GetSnackBar(
+                                title: 'Regristrar Proyecto',
+                                message: 'Por favor verifique los campos',
+                                icon: Icon(Icons.gpp_good_outlined),
+                                duration: Duration(seconds: 5),
+                                backgroundColor:
+                                    Color.fromARGB(255, 241, 63, 9),
+                              ));
                             },
                     ),
                   ],
